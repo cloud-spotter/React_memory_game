@@ -1,3 +1,35 @@
+# Memory Game React App
+
+This project is a React adaptation of a memory card game originally created as a Python CLI application. The game allows users to interact with a graphical interface, enhancing the overall user experience.
+
+## Development Process
+
+The journey from concept to execution involves a series of carefully planned steps, each aimed at delivering a robust and user-friendly application.
+
+### Planning and Design
+
+- **Transition from Python CLI to React**: Leveraging the core logic from the Python CLI version to build an interactive web version using React.
+- **User Stories**: Defined the application's expected responses to user actions, forming the basis for feature development.
+- **UI Design**: Drafted and refined the user interface design in Figma, with a focus on accessibility and visual appeal.
+- **Testing Strategy**: Outlined a strategy for Jest/React Testing Library to conduct unit and integration tests.
+- **Component Hierarchy and State Management**: Mapped out the structure and data flow between components, along with the management of state within the application.
+- **Game Logic and User Interaction**: Analysed the transition of game logic from the Python application to fit a GUI context, considering the events and user actions that would trigger updates to state and UI.
+
+### Diagramming and Visualisation
+
+- **Component Hierarchy Diagram**: Illustrated the organisation of components and their relationships, providing a clear blueprint for the app structure.
+
+![Component Hierarchy Diagram](images/component_hierarchy)
+
+- **Game Flow Diagram**: Developed a flow diagram to visualize the game logic, tying together user actions, state management, and UI updates. This served as an invaluable tool for planning and understanding the dynamics of the React application.
+
+![Game Flow Diagram](images/game_flow)
+
+### Test-Driven Development (TDD)
+
+- **Upcoming Stage**: Embarking on the TDD phase, with a set of preliminary tests guiding the development of a minimum viable product (MVP).
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
