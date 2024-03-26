@@ -19,11 +19,11 @@ The journey from concept to execution involves a series of carefully planned ste
 
 - **Component Hierarchy Diagram**: Illustrated the organisation of components and their relationships, providing a clear blueprint for the app structure.
 
-![Component Hierarchy Diagram](images/component_hierarchy)
+![Component Hierarchy Diagram](public/images/component_hierarchy)
 
 - **Game Flow Diagram**: Developed a flow diagram to visualize the game logic, tying together user actions, state management, and UI updates. This served as an invaluable tool for planning and understanding the dynamics of the React application.
 
-![Game Flow Diagram](images/game_flow)
+![Game Flow Diagram](public/images/game_flow)
 
 ### Test-Driven Development (TDD)
 
