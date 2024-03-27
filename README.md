@@ -21,7 +21,7 @@ The journey from concept to execution involves a series of carefully planned ste
 
 ![Component Hierarchy Diagram](public/images/component_hierarchy.png)
 
-- **Game Flow Diagram**: Developed a flow diagram to visualize the game logic, tying together user actions, state management, and UI updates. This served as an invaluable tool for planning and understanding the dynamics of the React application.
+- **Game Flow Diagram**: Developed a flow diagram to visualise the game logic, tying together user actions, state management, and UI updates. This served as an invaluable tool for planning and understanding the dynamics of the React application.
 
 ![Game Flow Diagram](public/images/game_flow.png)
 
