@@ -2,22 +2,26 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import GameBoard from '../../src/components/game-board/GameBoard';
-
-// Commented out to start with App.test.js
+import GameBoard from './GameBoard';
 
 // describe('GameBoard', () => {
-//   test('renders a 4x4 grid of cards', () => {
+//   test('renders the grid component', () => {
 //     render(<GameBoard />);
-//     const cards = screen.getAllByRole('button', { name: /card/i });
-//     expect(cards).toHaveLength(16);
+//     const grid = screen.getbyTestId('grid');
+//     expect(grid).toBeInTheDocument();
 //   });
 
-//   test('flips a card when clicked', () => {
+//  test('renders GameControls component', () => {
 //     render(<GameBoard />);
-//     const card = screen.getAllByRole('button', { name: /card/i })[0];
-//     userEvent.click(card);
-//     expect(card).not.toHaveClass('card-facedown');
+//     const gameControlsElement = screen.getByTestId('game-controls');
+//     expect(gameControlsElement).toBeInTheDocument();
+//   });
+
+//   test('flips a facedown-card when clicked', () => {
+//     render(<GameBoard />);
+//     const card = screen.getAllByRole('button', { name: "" })[0];
+//     fireEvent.click(card);
+//     expect(card).toHaveClass('card-faceup');
 //   });
 
 //   test('unflips cards when two non-matching cards are flipped', () => {
@@ -27,17 +31,6 @@ import GameBoard from '../../src/components/game-board/GameBoard';
 //     userEvent.click(card2);
 //     expect(card1).toHaveClass('card-facedown');
 //     expect(card2).toHaveClass('card-facedown');
-//   });
-
-//   test('keeps cards flipped when two matching cards are flipped', () => {
-//     render(<GameBoard />);
-//     const [card1, card2] = screen.getAllByRole('button', { name: /card/i });
-//     card1.setAttribute('data-testid', 'card-1');
-//     card2.setAttribute('data-testid', 'card-1');
-//     userEvent.click(card1);
-//     userEvent.click(card2);
-//     expect(card1).not.toHaveClass('card-facedown');
-//     expect(card2).not.toHaveClass('card-facedown');
 //   });
 
 //   test('updates move count when cards are flipped', () => {

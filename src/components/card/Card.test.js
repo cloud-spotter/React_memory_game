@@ -1,30 +1,34 @@
 // tests/unit/Card.test.js
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import Card from '../../src/components/card/Card';
+import { fireEvent, render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event'; //TODO: Delete if not needed
+import Card from './Card'
 
-// Commented out to start with App.test.js
+describe('Card', () => {
+  test('renders a facedown card by default', () => {
+    render(<Card value="A" />);
+    const card = screen.getByRole('button', { name: '' });
+    expect(card).toHaveClass('card-facedown');
+  });
 
-// describe('Card', () => {
-//   test('renders a facedown card by default', () => {
-//     render(<Card />);
-//     const card = screen.getByRole('button', { name: /card/i });
-//     expect(card).toHaveClass('card-facedown');
-//   });
+  test('flips the card when clicked', () => {
+    const value = "A"
+    render(<Card value={value} />);
+    
+    const card = screen.getByRole('button', { name: '' });
+    expect(card).toHaveClass('card-facedown');
+    
+    fireEvent.click(card); // triggers click event synchronously (rather than userEvent.click(card))
+    expect(card).toHaveClass('card-faceup');
+    expect(card).toHaveTextContent(value);
+  });
 
-//   test('flips the card when clicked', () => {
-//     render(<Card />);
-//     const card = screen.getByRole('button', { name: /card/i });
-//     userEvent.click(card);
-//     expect(card).not.toHaveClass('card-facedown');
-//   });
+  test('displays the card value when flipped', () => {
+    const value = "A"
+    render(<Card value={value} />);
 
-//   test('displays the card symbol when flipped', () => {
-//     render(<Card symbol="A" />);
-//     const card = screen.getByRole('button', { name: /card/i });
-//     userEvent.click(card);
-//     const symbol = screen.getByText('A');
-//     expect(symbol).toBeInTheDocument();
-//   });
-// });
+    const card = screen.getByRole('button', { name: "" });
+    fireEvent.click(card);
+    expect(card).toHaveTextContent(value);
+  });
+});

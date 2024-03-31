@@ -1,13 +1,83 @@
-body {
+/* body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
+} */
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* General styles and resets */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif; /* Fallback if custom fonts are not available */
+}
+
+/* Memory Game styles */
+.memory-game {
+  background-color: #259FA7;
+  font-family: 'Ligconsolata', monospace; /* Assuming you have this font loaded */
+  color: #FFE794; /* Header color */
+  padding: 20px;
+}
+
+.memory-game-header {
+  font-family: 'Love Ya Like A Sister', cursive; /* Assuming you have this font loaded */
+  background: linear-gradient(to bottom, #FFE794, #FFEFFF);
+  text-align: center;
+  margin-bottom: 20px;
+  padding: 10px;
+  font-size: 2em;
+}
+
+.memory-game-board {
+  background-color: #FFDC62;
+  max-width: 600px; /* Adjust based on your design */
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columns */
+  grid-gap: 10px;
+  padding: 20px;
+}
+
+.memory-game-card {
+  background-color: #FFFACD;
+  height: 100px; /* Adjust based on your design */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0; /* Hide text when face down */
+  cursor: pointer;
+}
+
+.memory-game-card.face-up {
+  background-color: #FFFFFF;
+  font-size: 1em; /* Show text when face up */
+}
+
+.button {
+  background-color: #8EFFE4; /* Start button */
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  margin: 10px;
+  font-family: 'Ligconsolata', monospace;
+}
+
+.button.reset {
+  background-color: #FF9EA4; /* Reset button */
+}
+
+/* Responsive adjustments can go here if needed */
+@media (max-width: 768px) {
+  .memory-game-board {
+    grid-template-columns: repeat(3, 1fr); /* 3 columns for smaller screens */
+  }
+}
+
