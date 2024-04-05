@@ -6,7 +6,8 @@ function App() {
   return (
     <>
       <div className="header"><Header /></div>
-      <div><Card /></div>
+      {/* TODO: update after TDD! */}
+      <div><Card /></div> 
     </>
   );
 }

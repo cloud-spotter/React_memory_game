@@ -33,6 +33,17 @@ import GameBoard from './GameBoard';
 //     expect(card2).toHaveClass('card-facedown');
 //   });
 
+//   test('keeps cards flipped when two matching cards are flipped', () => {
+//     render(<Grid />);
+//     const [card1, card2] = screen.getAllByRole('button', { name: /card/i });
+//     card1.setAttribute('data-testid', 'card-1');
+//     card2.setAttribute('data-testid', 'card-1');
+//     userEvent.click(card1);
+//     userEvent.click(card2);
+//     expect(card1).not.toHaveClass('card-facedown');
+//     expect(card2).not.toHaveClass('card-facedown');
+//   });
+
 //   test('updates move count when cards are flipped', () => {
 //     render(<GameBoard />);
 //     const [card1, card2] = screen.getAllByRole('button', { name: /card/i });
