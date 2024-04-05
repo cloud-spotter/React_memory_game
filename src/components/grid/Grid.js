@@ -1,7 +1,8 @@
 import Card from '../card/Card';
 
 function Grid() {
-    return <div><Card /></div>;
+    // TODO: implement code to pass Grid test
+    return <div><Card /></div>; 
 }
 
 export default Grid;
