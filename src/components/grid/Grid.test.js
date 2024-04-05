@@ -6,7 +6,7 @@ import Card from '../card/Card';
 describe('Grid', () => {
     test('renders a grid of cards', () => {
       render(<Grid />);
-      const cards = screen.getAllByRole('button', { name: 'card-facedown'});
+      const cards = screen.getAllByRole('button', { name: "Card facedown"});
       expect(cards).toHaveLength(16);
     });
 });
