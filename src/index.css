@@ -29,7 +29,7 @@ body, html {
 
 .memory-game-board {
   background-color: #FFDC62;
-  max-width: 600px; /* Adjust based on your design */
+  max-width: 600px; /* TODO: adjust as needed */
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* 4 columns */
@@ -39,7 +39,7 @@ body, html {
 
 .memory-game-card {
   background-color: #FFFACD;
-  height: 100px; /* Adjust based on your design */
+  height: 100px; /* TODO: adjust as needed */
   display: flex;
   justify-content: center;
   align-items: center;
