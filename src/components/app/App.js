@@ -1,11 +1,13 @@
 import './App.css';
 import Header from '../header/Header';
 import Card from '../card/Card';
+import GameBoard from '../game-board/GameBoard';
 
 function App() {
   return (
     <>
       <div className="header"><Header /></div>
+      <div className='game-board'><GameBoard /></div> 
       {/* TODO: update after TDD! */}
       <div><Card /></div> 
     </>

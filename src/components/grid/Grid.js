@@ -13,7 +13,7 @@ function Grid() {
     const cards = cardValues.map((value, index) => (
         <Card key={index} value={value} />
     ));
-    return <div className="grid">{cards}</div>; 
+    return <div className="grid" data-testid="grid">{cards}</div>; 
 }
 
 export default Grid;

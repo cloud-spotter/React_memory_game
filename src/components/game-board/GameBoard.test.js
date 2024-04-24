@@ -4,12 +4,12 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import GameBoard from './GameBoard';
 
-// describe('GameBoard', () => {
-//   test('renders the grid component', () => {
-//     render(<GameBoard />);
-//     const grid = screen.getbyTestId('grid');
-//     expect(grid).toBeInTheDocument();
-//   });
+describe('GameBoard', () => {
+    test('renders the grid component', () => {
+        render(<GameBoard />);
+        const grid = screen.getbyTestId('grid');
+        expect(grid).toBeInTheDocument();
+});
 
 //  test('renders GameControls component', () => {
 //     render(<GameBoard />);
@@ -64,4 +64,4 @@ import GameBoard from './GameBoard';
 //     const gameOverMessage = screen.getByText(/Game Over/i);
 //     expect(gameOverMessage).toBeInTheDocument();
 //   });
-// });
+});

@@ -10,11 +10,11 @@ describe('App', () => {
     expect(gameTitle).toBeInTheDocument();
   });
 
-// test('renders GameBoard component', () => {
-//   render(<App />);
-//   const gameBoardElement = screen.getByTestId('game-board');
-//   expect(gameBoardElement).toBeInTheDocument();
-// });
+  test('renders GameBoard component', () => {
+    render(<App />);
+    const gameBoardElement = screen.getByTestId('game-board');
+    expect(gameBoardElement).toBeInTheDocument();
+  });
 
 // test('renders Footer component', () => {
 //   render(<App />);
