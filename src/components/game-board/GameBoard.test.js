@@ -7,7 +7,7 @@ import GameBoard from './GameBoard';
 describe('GameBoard', () => {
     test('renders the grid component', () => {
         render(<GameBoard />);
-        const grid = screen.getbyTestId('grid');
+        const grid = screen.getByTestId('grid');
         expect(grid).toBeInTheDocument();
 });
 
