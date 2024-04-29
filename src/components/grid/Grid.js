@@ -33,7 +33,6 @@ function Grid() {
             const j = Math.floor(Math.random() * (i + 1));
             [array[i], array[j]] = [array[j], array[i]];
         }
-        console.log("array now this: ", array) // TODO: Debugging, remove when fixed
         return array;
     }
     
@@ -44,12 +43,10 @@ function Grid() {
     
     let cardValues = createPairSequence(totalValues);
     cardValues = shuffleArray(cardValues); // Shuffle the card value array
-    console.log("cardValues = ", cardValues) // TODO: Debugging, remove when fixed
 
     const cards = cardValues.map((value, index) => (
         <Card key={index} value={value} />
     ));
-    // console.log("cards: ", cards) // TODO: Debugging, remove when fixed
 
     return <div className="grid" data-testid="grid">{cards}</div>; 
 };

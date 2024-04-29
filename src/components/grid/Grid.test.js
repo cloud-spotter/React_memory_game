@@ -16,7 +16,6 @@ describe('Grid', () => {
         fireEvent.click(card); // Simulate click event on each card (do this one at a time!)
       });
       const firstRenderValues = getCardValues(firstContainerElement);
-      console.log("firstRenderValues = ", firstRenderValues) // TODO: Debugging, remove when fixed
 
       cleanup(); // Remember to import from testing library. Unmounts React trees that were mounted with render.
 
@@ -26,7 +25,6 @@ describe('Grid', () => {
         fireEvent.click(card); // Simulate click event on each card, one after the other
       });
       const secondRenderValues = getCardValues(secondContainerElement);
-      console.log("secondRenderValues = ", secondRenderValues) // TODO: Debugging, remove when fixed
 
       expect(areArraysDifferent(firstRenderValues, secondRenderValues)).toBe(true);
     });
