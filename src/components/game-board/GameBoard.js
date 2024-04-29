@@ -1,5 +1,5 @@
 import React from 'react';
-import Grid from '../grid/Grid';
+import { Grid } from '../grid/Grid';
 
 function GameBoard() {
     return (
