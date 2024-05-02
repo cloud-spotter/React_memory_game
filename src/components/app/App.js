@@ -1,6 +1,5 @@
 import './App.css';
 import Header from '../header/Header';
-import Card from '../card/Card';
 import GameBoard from '../game-board/GameBoard';
 
 function App() {

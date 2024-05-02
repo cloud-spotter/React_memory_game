@@ -16,7 +16,7 @@ describe('GameBoard', () => {
         const startButton = screen.getByRole('button', { name: /start/i });
         expect(startButton).toBeInTheDocument();
     });
-      
+
     test('renders reset button', () => {
         render(<GameBoard />);
         const resetButton = screen.getByRole('button', { name: /reset/i });
