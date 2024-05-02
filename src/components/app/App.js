@@ -9,7 +9,7 @@ function App() {
       <div className="header"><Header /></div>
       <div className='game-board'><GameBoard /></div> 
       {/* TODO: update after TDD! */}
-      <div><Card /></div> 
+      {/* <div><Card /></div>  */}
     </>
   );
 }

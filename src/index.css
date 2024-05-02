@@ -39,6 +39,8 @@ body, html {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 10px;
+  justify-items: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
 }
 
 .card-facedown {

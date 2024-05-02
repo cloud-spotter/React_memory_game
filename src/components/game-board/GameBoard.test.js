@@ -9,13 +9,19 @@ describe('GameBoard', () => {
         render(<GameBoard />);
         const grid = screen.getByTestId('grid');
         expect(grid).toBeInTheDocument();
-});
+    });
 
-//  test('renders GameControls component', () => {
-//     render(<GameBoard />);
-//     const gameControlsElement = screen.getByTestId('game-controls');
-//     expect(gameControlsElement).toBeInTheDocument();
-//   });
+    test('renders start button', () => {
+        render(<GameBoard />);
+        const startButton = screen.getByRole('button', { name: /start/i });
+        expect(startButton).toBeInTheDocument();
+    });
+      
+    test('renders reset button', () => {
+        render(<GameBoard />);
+        const resetButton = screen.getByRole('button', { name: /reset/i });
+        expect(resetButton).toBeInTheDocument();
+    });
 
 //   test('flips a facedown-card when clicked', () => {
 //     render(<GameBoard />);
