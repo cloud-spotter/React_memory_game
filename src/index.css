@@ -27,6 +27,7 @@ body, html {
   padding: 20px;
 }
 
+/*  TODO: Delete if not introducing this */
 /* .game-container {
   display: flex;
   flex-direction: column;
@@ -38,6 +39,7 @@ body, html {
   padding: 20px;
   max-width: 620px; /* Slightly larger to accommodate padding */
   margin: 0 auto;
+  border-radius: 10px 10px 10px 10px;
   box-shadow: 0px 0px 10px #666; 
 }
 
@@ -52,19 +54,19 @@ body, html {
 .card-facedown {
   background-color: #FFFACD; /* Light yellow when face down */
   height: 150px;
-  width: 100px;
+  width: 140px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  border: 1px solid #000; /* Adds a border for better visibility */
+  border: 1px solid #000; /* Border for better visibility */
   font-size: 0; /* Hide text when face down */
 }
 
 .card-faceup {
   background-color: #FFFFFF; /* White when face up */
   height: 150px;
-  width: 100px;
+  width: 140px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -73,17 +75,38 @@ body, html {
   font-size: 1em; /* Show text when face up */
 }
 
-.button {
-  background-color: #8EFFE4; /* Start button */
+.game-controls {
+  display: flex;
+  justify-content: center;
+  gap: 50px; /* Spacing between buttons */
+  margin-top: 20px; /* Spacing between game board and buttons */
+}
+
+/* TODO: sort size of buttons and font (too small at the moment) */
+.button.start {
+  background-color: #8EFFE4; 
+  height: 50px;
+  width: 110px;
   padding: 10px 20px;
   border: none;
   cursor: pointer;
   margin: 10px;
+  border-radius: 7px 7px 7px 7px;
   font-family: 'Ligconsolata', monospace;
+  font-size: 1em
 }
 
 .button.reset {
-  background-color: #FF9EA4; /* Reset button */
+  background-color: #FF9EA4; 
+  height: 50px;
+  width: 110px;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  margin: 10px;
+  border-radius: 10px 10px 10px 10px;
+  font-family: 'Ligconsolata', monospace;
+  font-size: 1em
 }
 
 /* Responsive adjustments can go here if needed */

@@ -4,8 +4,8 @@ function GameControls() {
 
     return (
         <div className="game-controls">
-            <button className="start" aria-label="Start">Start</button>
-            <button className="reset" aria-label="Reset">Reset</button>
+            <button className="button start" aria-label="Start">Start</button>
+            <button className="button reset" aria-label="Reset">Reset</button>
         </div>
     );
 }
