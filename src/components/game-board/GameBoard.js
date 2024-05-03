@@ -4,12 +4,12 @@ import GameControls from '../game-controls/GameControls';
 
 function GameBoard() {
     return (
-      <>
+    <>
         <div className='game-board' data-testid="game-board">
           <Grid />
         </div>
-        <GameControls />
-      </>
+      <GameControls />
+    </>
     );
 }
 
