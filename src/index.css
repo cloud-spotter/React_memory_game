@@ -73,7 +73,7 @@ body, html {
   align-items: center;
   cursor: pointer;
   border: 1px solid #000; /* Consistent border */
-  font-size: 1em; /* Show text when face up */
+  font-size: 3em; /* Show text when face up */
 }
 
 .game-controls {
