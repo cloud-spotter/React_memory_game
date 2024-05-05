@@ -1,6 +1,6 @@
 // tests/integration/GameBoard.test.js
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import GameBoard from './GameBoard';
 
@@ -23,12 +23,12 @@ describe('GameBoard', () => {
         expect(resetButton).toBeInTheDocument();
     });
 
-//   test('flips a facedown-card when clicked', () => {
-//     render(<GameBoard />);
-//     const card = screen.getAllByRole('button', { name: "" })[0];
-//     fireEvent.click(card);
-//     expect(card).toHaveClass('card-faceup');
-//   });
+    test('flips a facedown-card when clicked', () => {
+        render(<GameBoard />);
+        const card = screen.getAllByRole('button', { name: "Card facedown" })[0];
+        fireEvent.click(card);
+        expect(card).toHaveClass('card-faceup');
+    });
 
 //   test('unflips cards when two non-matching cards are flipped', () => {
 //     render(<GameBoard />);
