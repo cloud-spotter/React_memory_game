@@ -30,9 +30,9 @@ describe('GameBoard', () => {
         expect(card).toHaveClass('card-faceup');
     });
 
-//   test('unflips cards when two non-matching cards are flipped', () => {
+//   test('unflips cards when two non-matching cards are already flipped', () => {
 //     render(<GameBoard />);
-//     const [card1, card2] = screen.getAllByRole('button', { name: /card/i });
+//     const [card1, card2] = screen.getAllByRole('button', { name: /card faceup/i });
 //     userEvent.click(card1);
 //     userEvent.click(card2);
 //     expect(card1).toHaveClass('card-facedown');
