@@ -41,9 +41,7 @@ describe('GameBoard', () => {
         firstRenderCards.forEach(card => {
             fireEvent.click(card);  // Then turn each card over to check their values
         });
-        
         const firstRenderCardValues = firstRenderCards.map(card => card.textContent);
-        console.log('first render cards: ', firstRenderCardValues); // Debugging TODO: delete once fixed
 
         cleanup();  // Unmount component currently rendered (firstContainer) & clear up any side effects 
 
@@ -53,9 +51,7 @@ describe('GameBoard', () => {
         secondRenderCards.forEach(card => {
             fireEvent.click(card);
         });
-        
         const secondRenderCardValues = secondRenderCards.map(card => card.textContent);
-        console.log('second render cards: ', secondRenderCardValues); // Debugging TODO: delete once fixed
         
         expect(firstRenderCardValues).not.toEqual(secondRenderCardValues);
     });
