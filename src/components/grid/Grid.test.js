@@ -1,6 +1,6 @@
 // tests/integration/Grid.test.js
 import { render, screen, fireEvent, cleanup } from '@testing-library/react';
-import { Grid, areArraysDifferent, getCardValues } from './Grid';
+import Grid from './Grid';
 
 describe('Grid', () => {
     test('renders a grid of cards', () => {
