@@ -17,12 +17,6 @@ import Card from '../card/Card';
 //     return false;
 // };
 
-// const getCardValues = (container) => {
-//     // Find all the 'faceup' card elements
-//     const cards = container.querySelectorAll(".card-faceup");
-//     // Map over the found elements to retrieve their text content
-//     return Array.from(cards).map(card => card.textContent);
-// };
 
 function Grid({ cards, handleCardClick }) {
     const cardElements = cards.map((card, index) => (

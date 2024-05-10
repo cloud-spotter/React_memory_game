@@ -17,6 +17,12 @@ const createPairSequence = (total) => {
     return [...sequence, ...sequence]; // Create a paired sequence of values
 };
 
+const getCardValues = (container) => {
+    // Find all the 'faceup' card elements
+    const cards = container.querySelectorAll(".card-faceup");
+    // Map over the found elements to retrieve their text content
+    return Array.from(cards).map(card => card.textContent);
+};
 
 function GameBoard() {
     const totalCards = 16;
