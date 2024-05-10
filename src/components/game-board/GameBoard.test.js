@@ -1,10 +1,14 @@
 // tests/integration/GameBoard.test.js
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, cleanup } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import GameBoard from './GameBoard';
 
 describe('GameBoard', () => {
+    beforeEach(() => {
+        cleanup();
+    });
+    
     test('renders the grid component', () => {
         render(<GameBoard />);
         const grid = screen.getByTestId('grid');
@@ -28,6 +32,32 @@ describe('GameBoard', () => {
         const card = screen.getAllByRole('button', { name: "Card facedown" })[0];
         fireEvent.click(card);
         expect(card).toHaveClass('card-faceup');
+    });
+
+    test('shuffles the cards randomly each render', () => {        
+        const { container: firstContainer } = render(<GameBoard />);
+        // Flip all cards in the first render
+        const firstRenderCards = screen.getAllByRole('button', { name: "Card facedown" }); // Search component currently rendered for facedown cards first (as that's their initial state)
+        firstRenderCards.forEach(card => {
+            fireEvent.click(card);  // Then turn each card over to check their values
+        });
+        
+        const firstRenderCardValues = firstRenderCards.map(card => card.textContent);
+        console.log('first render cards: ', firstRenderCardValues); // Debugging TODO: delete once fixed
+
+        cleanup();  // Unmount component currently rendered (firstContainer) & clear up any side effects 
+
+        const { container: secondContainer } = render(<GameBoard />);
+        // Flip all cards in the second render
+        const secondRenderCards = screen.getAllByRole('button', { name: "Card facedown" });
+        secondRenderCards.forEach(card => {
+            fireEvent.click(card);
+        });
+        
+        const secondRenderCardValues = secondRenderCards.map(card => card.textContent);
+        console.log('second render cards: ', secondRenderCardValues); // Debugging TODO: delete once fixed
+        
+        expect(firstRenderCardValues).not.toEqual(secondRenderCardValues);
     });
 
 //   test('unflips cards when two non-matching cards are already flipped', () => {
