@@ -10,6 +10,7 @@ describe('Card', () => {
     expect(card).toHaveClass('card-facedown');
   });
 
+  
   test('flips the card when clicked, verifying state change in class', () => {
     const mockHandleCardClick = jest.fn();
     render(<Card value="A" isFlipped={false} handleCardClick={mockHandleCardClick} />);
@@ -26,19 +27,18 @@ describe('Card', () => {
     expect(cardAfterClick).toHaveClass('card-faceup');
   });
 
+
   test('displays the card value when flipped and verifies aria-label', () => {
     const mockHandleCardClick = jest.fn();
     render(<Card value="A" isFlipped={false} handleCardClick={mockHandleCardClick} />);
     
     const cardBeforeClick = screen.getByRole('button', { name: "Card facedown" });
-    console.log(`Card value is ${cardBeforeClick.textContent}`)  // DEBUGGING TODO: delete later
     fireEvent.click(cardBeforeClick);
     
     // Re-render with card faceup
     render(<Card value="A" isFlipped={true} handleCardClick={mockHandleCardClick} />);
     // After flipping, the card should display its value
     const cardAfterClick = screen.getByRole('button', { name: "Card faceup with value A" });
-    console.log(`Card value is ${cardAfterClick.textContent}`)  // DEBUGGING TODO: delete later
     expect(cardAfterClick).toHaveTextContent("A");
 
     // Verify the aria-label has been updated to reflect the card's new state
