@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
 import Grid from '../grid/Grid';
 import GameControls from '../game-controls/GameControls';
-    
+
+const createCardData = (value) => ({
+    value: value, 
+    isFlipped: false,
+    isMatched: false
+});
+
 // Function to shuffle array (Fisher-Yates shuffle algorithm)
 // https:www.freecodecamp.org/news/how-to-shuffle-an-array-of-items-using-javascript-or-typescript/
 const shuffleArray = (array) => {
