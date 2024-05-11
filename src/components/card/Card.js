@@ -1,14 +1,14 @@
 import React from "react";
 
-function Card( { value, isFlipped, handleCardClick }) {
+function Card({ card, handleCardClick }) {
     return (
         <button 
-            className={isFlipped ? "card-faceup" : "card-facedown"}
+            className={card.isFlipped ? "card-faceup" : "card-facedown"}
             // aria-label added to enhance accessibility
-            aria-label={isFlipped ? `Card faceup with value ${value}` : "Card facedown"} 
+            aria-label={card.isFlipped ? `Card faceup with value ${card.value}` : "Card facedown"} 
             onClick={handleCardClick}
         >
-            {isFlipped ? value : ""}
+            {card.isFlipped ? card.value : ""}
         </button>
     )
 }
