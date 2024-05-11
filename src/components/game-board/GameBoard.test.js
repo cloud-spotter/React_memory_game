@@ -56,6 +56,26 @@ describe('GameBoard', () => {
         expect(firstRenderCardValues).not.toEqual(secondRenderCardValues);
     });
 
+    test('registers cards as matched when two matching cards are flipped', () => {
+        render(<GameBoard />);
+    
+        // Find two cards with the same value
+        const cards = screen.getAllByRole('button', { name: /card facedown/i });
+        const firstCardValue = cards[0].getAttribute('data-value');
+        const matchingCard = cards.find(card => card.getAttribute('data-value') === firstCardValue && card !== cards[0]);
+        
+        // Ensure a matching card is found
+        expect(matchingCard).not.toBeUndefined();
+
+        // Flip the two matching cards
+        userEvent.click(cards[0]);
+        userEvent.click(matchingCard);
+
+        // Assert that both cards are registered as matched
+        expect(cards[0]).toHaveClass('card-matched');
+        expect(matchingCard).toHaveClass('card-matched');
+    });
+
 //   test('unflips cards when two non-matching cards are already flipped', () => {
 //     render(<GameBoard />);
 //     const [card1, card2] = screen.getAllByRole('button', { name: /card faceup/i });
