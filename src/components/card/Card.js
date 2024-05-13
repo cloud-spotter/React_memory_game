@@ -7,6 +7,7 @@ function Card({ card, handleCardClick }) {
             // aria-label added to enhance accessibility
             aria-label={card.isFlipped ? `Card faceup with value ${card.value}` : "Card facedown"} 
             onClick={handleCardClick}
+            data-value={card.value}
         >
             {card.isFlipped ? card.value : ""}
         </button>
