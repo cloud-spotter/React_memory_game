@@ -68,8 +68,8 @@ describe('GameBoard', () => {
         expect(matchingCard).not.toBeUndefined();
 
         // Flip the two matching cards
-        userEvent.click(cards[0]);
-        userEvent.click(matchingCard);
+        fireEvent.click(cards[0]);
+        fireEvent.click(matchingCard);
 
         // Assert that both cards are registered as matched
         expect(cards[0]).toHaveClass('card-matched');
