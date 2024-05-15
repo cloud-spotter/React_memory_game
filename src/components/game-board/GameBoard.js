@@ -29,19 +29,51 @@ function GameBoard() {
     const cardValues = shuffleArray(createPairSequence(totalCards)); // Create and shuffle cards
     // Initialise cards state (with shuffled values)
     const [cards, setCards] = useState(cardValues.map(value => createCardData(value)));
+    const [flippedIndices, setFlippedIndices] = useState([]);  // Track indices of currently flipped cards across renders
         
     const handleCardClick = (index) => {
-        setCards(currentCards => 
-            currentCards.map((card, idx) => 
-                idx === index ? {...card, isFlipped: !card.isFlipped, isMatched: card.isMatched } : card )
-            );
+        setCards(currentCards => {
+            // Create copy of current cards array for modifying
+            let updatedCards = [...currentCards];
+            // Check if clicked card is already flipped/matched (& return early if so)
+            if (currentCards[index].isFlipped || currentCards[index].isMatched) {
+                return updatedCards
+            }
+
+            // Flip the clicked card
+            updatedCards[index].isFlipped = true;
+
+            // Temporary array to include indices of currently flipped cards PLUS the newly flipped card
+            const newFlippedIndices = [...flippedIndices, index];
+
+            if (newFlippedIndices.length === 2) {
+                const [firstIndex, secondIndex] = newFlippedIndices;
+                if (updatedCards[firstIndex].value === updatedCards[secondIndex].value) {
+                    updatedCards[firstIndex].isMatched = true;
+                    updatedCards[secondIndex].isMatched = true;
+                    setFlippedIndices([]);
+                } else {
+                    setFlippedIndices(newFlippedIndices);
+                }
+            } else if (newFlippedIndices.length === 3) {  // Handle case when third card is clicked (reset two already flipped)
+                const [firstIndex, secondIndex] = newFlippedIndices;
+                updatedCards[firstIndex].isFlipped = false;
+                updatedCards[secondIndex].isFlipped = false;
+                updatedCards[index].isFlipped = true; // Flip the third card
+                setFlippedIndices([index]);
+            } else {
+                setFlippedIndices(newFlippedIndices);
+            }
+
+            return updatedCards;
+        });
     };
 
     return (
     <>
-        <div className='game-board' data-testid="game-board">
-          <Grid cards={cards} handleCardClick={handleCardClick} />
-        </div>
+      <div className='game-board' data-testid="game-board">
+        <Grid cards={cards} handleCardClick={handleCardClick} />
+      </div>
       <GameControls />
     </>
     );
