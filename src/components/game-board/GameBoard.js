@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Grid from '../grid/Grid';
 import GameControls from '../game-controls/GameControls';
 
-// Function to create card data for each card instance (to be mapped to each element in the cards array when inisialised)
+// Function to create card data for each card instance (to be mapped to each element in the cards array when initialised)
 const createCardData = (value) => ({ // () around {} indicates that the arrow function will directly return an object literal
     value: value, 
     isFlipped: false,
@@ -45,21 +45,21 @@ function GameBoard() {
 
             // Temporary array to include indices of currently flipped cards PLUS the newly flipped card
             const newFlippedIndices = [...flippedIndices, index];
-
+            // If there are 2 cards currently flipped, check their values for a match & if a match is found, mark them as matched
             if (newFlippedIndices.length === 2) {
                 const [firstIndex, secondIndex] = newFlippedIndices;
                 if (updatedCards[firstIndex].value === updatedCards[secondIndex].value) {
                     updatedCards[firstIndex].isMatched = true;
                     updatedCards[secondIndex].isMatched = true;
-                    setFlippedIndices([]);
+                    setFlippedIndices([]); // Remove matched cards from flipped indices tracker
                 } else {
                     setFlippedIndices(newFlippedIndices);
                 }
-            } else if (newFlippedIndices.length === 3) {  // Handle case when third card is clicked (reset two already flipped)
+            } else if (newFlippedIndices.length === 3) {  // Handle case when third card is clicked if two unmatched cards are already flipped (flip back the first two)
                 const [firstIndex, secondIndex] = newFlippedIndices;
                 updatedCards[firstIndex].isFlipped = false;
                 updatedCards[secondIndex].isFlipped = false;
-                updatedCards[index].isFlipped = true; // Flip the third card
+                updatedCards[index].isFlipped = true; // Flip the third (current) card clicked
                 setFlippedIndices([index]);
             } else {
                 setFlippedIndices(newFlippedIndices);
