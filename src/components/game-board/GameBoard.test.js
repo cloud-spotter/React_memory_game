@@ -76,17 +76,31 @@ describe('GameBoard', () => {
         expect(matchingCard).toHaveClass('card-matched');
     });
 
-//   test('unflips cards when two non-matching cards are already flipped', () => {
-//     render(<GameBoard />);
-//     const [card1, card2] = screen.getAllByRole('button', { name: /card faceup/i });
-//     userEvent.click(card1);
-//     userEvent.click(card2);
-//     expect(card1).toHaveClass('card-facedown');
-//     expect(card2).toHaveClass('card-facedown');
-//   });
+  test('unflips cards when two non-matching cards are already flipped and a third is clicked', () => {
+    render(<GameBoard />);
+    const cards = screen.getAllByRole('button', { name: /card facedown/i });
+    const firstCard = cards[0];
+    const nonMatchingCard = cards.find(card => card.getAttribute('data-value') !== firstCard.getAttribute('data-value'));
+    
+    // TODO: Debugging - to delete later
+    console.log('first card value:', firstCard.getAttribute('data-value')) // To log the card values, use .getAttribute() 
+    console.log('second card value:', nonMatchingCard.getAttribute('data-value'))
+    
+    fireEvent.click(firstCard);
+    fireEvent.click(nonMatchingCard);
+    
+    const thirdCard = cards.find(card => card.getAttribute('data-value') !== firstCard.getAttribute('data-value') && card.getAttribute('data-value') !== nonMatchingCard.getAttribute('data-value'));
+    // TODO: Debugging - to delete later
+    console.log('third card value:', thirdCard.getAttribute('data-value'))
+    fireEvent.click(thirdCard);
+
+    expect(firstCard).toHaveClass('card-facedown');
+    expect(nonMatchingCard).toHaveClass('card-facedown');
+    expect(thirdCard).toHaveClass('card-faceup')
+  });
 
 //   test('keeps cards flipped when two matching cards are flipped', () => {
-//     render(<Grid />);
+//     render(<GameBoard />);
 //     const [card1, card2] = screen.getAllByRole('button', { name: /card/i });
 //     card1.setAttribute('data-testid', 'card-1');
 //     card2.setAttribute('data-testid', 'card-1');
