@@ -82,33 +82,29 @@ describe('GameBoard', () => {
     const firstCard = cards[0];
     const nonMatchingCard = cards.find(card => card.getAttribute('data-value') !== firstCard.getAttribute('data-value'));
     
-    // TODO: Debugging - to delete later
-    console.log('first card value:', firstCard.getAttribute('data-value')) // To log the card values, use .getAttribute() 
-    console.log('second card value:', nonMatchingCard.getAttribute('data-value'))
-    
     fireEvent.click(firstCard);
     fireEvent.click(nonMatchingCard);
     
     const thirdCard = cards.find(card => card.getAttribute('data-value') !== firstCard.getAttribute('data-value') && card.getAttribute('data-value') !== nonMatchingCard.getAttribute('data-value'));
-    // TODO: Debugging - to delete later
-    console.log('third card value:', thirdCard.getAttribute('data-value'))
     fireEvent.click(thirdCard);
 
     expect(firstCard).toHaveClass('card-facedown');
     expect(nonMatchingCard).toHaveClass('card-facedown');
-    expect(thirdCard).toHaveClass('card-faceup')
+    expect(thirdCard).toHaveClass('card-faceup');
   });
 
-//   test('keeps cards flipped when two matching cards are flipped', () => {
-//     render(<GameBoard />);
-//     const [card1, card2] = screen.getAllByRole('button', { name: /card/i });
-//     card1.setAttribute('data-testid', 'card-1');
-//     card2.setAttribute('data-testid', 'card-1');
-//     userEvent.click(card1);
-//     userEvent.click(card2);
-//     expect(card1).not.toHaveClass('card-facedown');
-//     expect(card2).not.toHaveClass('card-facedown');
-//   });
+  test('keeps cards flipped when two matching cards are flipped', () => {
+    render(<GameBoard />);
+    const cards = screen.getAllByRole('button', { name: /card facedown/i });
+    const firstCard = cards[0];
+    const matchingCard = cards.find(card => card.getAttribute('data-value') === firstCard.getAttribute('data-value'));
+
+    fireEvent.click(firstCard);
+    fireEvent.click(matchingCard);
+
+    expect(firstCard).not.toHaveClass('card-facedown');
+    expect(matchingCard).not.toHaveClass('card-facedown');
+  });
 
 //   test('updates move count when cards are flipped', () => {
 //     render(<GameBoard />);
