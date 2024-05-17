@@ -108,9 +108,13 @@ describe('GameBoard', () => {
 
 //   test('updates move count when cards are flipped', () => {
 //     render(<GameBoard />);
-//     const [card1, card2] = screen.getAllByRole('button', { name: /card/i });
-//     userEvent.click(card1);
-//     userEvent.click(card2);
+//     const cards = screen.getAllByRole('button', { name: /card facedown/i });
+//     const firstCard = cards[0]
+//     const secondCard = cards[1]
+
+//     fireEvent.click(firstCard);
+//     fireEvent.click(secondCard);
+
 //     const moveCount = screen.getByText(/Moves: 2/i);
 //     expect(moveCount).toBeInTheDocument();
 //   });

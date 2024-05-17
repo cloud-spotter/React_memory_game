@@ -30,8 +30,11 @@ function GameBoard() {
     // Initialise cards state (with shuffled values)
     const [cards, setCards] = useState(cardValues.map(value => createCardData(value)));
     const [flippedIndices, setFlippedIndices] = useState([]);  // Track indices of currently flipped cards across renders
+    const [moveCount, setMoveCount] = useState(0)
         
     const handleCardClick = (index) => {
+        setMoveCount(previousMoveCount => previousMoveCount +1);
+        
         setCards(currentCards => {
             // Create copy of current cards array for modifying
             let updatedCards = [...currentCards];
@@ -64,10 +67,12 @@ function GameBoard() {
             } else {
                 setFlippedIndices(newFlippedIndices);
             }
-
             return updatedCards;
         });
     };
+
+    // Game Over
+    const isGameOver = cards.every(card => card.isMatched);
 
     return (
     <>
