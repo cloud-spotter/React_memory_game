@@ -1,7 +1,9 @@
 
 function Header() {
   return (
-    <h1>Memory Game</h1> 
+    <div className="header-container">
+      <h1 className="header">Memory<br />Game</h1> 
+    </div>
   );
 }
 
