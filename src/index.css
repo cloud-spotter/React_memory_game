@@ -17,19 +17,6 @@ body, html {
   flex-direction: column;
 }
 
-.header {
-  font-family: 'Love Ya Like A Sister', cursive;
-  background: transparent;
-  text-align: center;
-  margin-bottom: 20px;
-  padding: 10px 20px;
-  font-size: 3em;
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  background-image: linear-gradient(to bottom, #FFE794 0%, #FFEFFF 100%);
-}
-
 /* Memory Game styles */
 .memory-game {
   display: flex;
@@ -38,6 +25,25 @@ body, html {
   font-family: 'Ligconsolata', monospace; /* Font needs to be loaded to use this */
   gap: 20px; /* Space between header and game board */
   padding: 20px;
+}
+
+.header-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.header {
+  font-family: 'Love Ya Like A Sister', cursive;
+  background: transparent;
+  text-align: center;
+  /* margin-bottom: 20px; */
+  padding: 10px 20px;
+  font-size: 3em;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  background-image: linear-gradient(to bottom, #FFE794 0%, #FFEFFF 100%);
 }
 
 .game-container {
@@ -49,12 +55,10 @@ body, html {
 
 .game-board {
   background-color: #FFDC62; /* Darker yellow outline */
-  padding: 20px;
-  /* margin: 0 auto; */
-  border-radius: 10px 10px 10px 10px;
-  box-shadow: 0px 0px 10px #666; 
-  width: fit-content; 
-   /*box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); VERY SUBTLE SHADOW TODO: decide which shadow to keep */
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px #666;
+  width: fit-content;
 }
 
 .grid {
