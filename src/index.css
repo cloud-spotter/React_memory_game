@@ -1,8 +1,8 @@
-
-code {
+/* TODO: delete this block (not using code snippets) */
+/* code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
-}
+} */
 
 /* General styles and resets */
 body, html {
@@ -25,6 +25,8 @@ body, html {
   font-family: 'Ligconsolata', monospace; /* Font needs to be loaded to use this */
   gap: 20px; /* Space between header and game board */
   padding: 20px;
+  position: relative; /* Add position relative to allow for shifting */
+  left: -20%; /* Slightly shift to the left to achieve perfect centering */
 }
 
 .header-container {
@@ -37,13 +39,18 @@ body, html {
   font-family: 'Love Ya Like A Sister', cursive;
   background: transparent;
   text-align: center;
-  /* margin-bottom: 20px; */
   padding: 10px 20px;
-  font-size: 3em;
+  font-size: 5em;
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
   background-image: linear-gradient(to bottom, #FFE794 0%, #FFEFFF 100%);
+  margin-top: 25px; /* Move the header up */
+  margin-right: 60px; /* Add space between the header and the game board */
+  letter-spacing: normal; /* Reset letter spacing */
+  word-spacing: normal; /* Reset word spacing */
+  line-height: normal; /* Reset line height */
+  font-weight: normal; /* Reset font weight */
 }
 
 .game-container {
@@ -59,25 +66,26 @@ body, html {
   border-radius: 10px;
   box-shadow: 0px 0px 10px #666;
   width: fit-content;
+  margin-top: 90px; /* Move the header up */
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-gap: 13px;
+  grid-gap: 11px;
   justify-items: center; /* Center horizontally */
   align-items: center; /* Center vertically */
 }
 
 .card-facedown, .card-faceup {
-  height: 120px;
-  width: 120px;
+  height: 110px;
+  width: 110px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   border: 1px solid #145E69; /* Border for better visibility */
-  border-radius: 10px 10px 10px 10px;
+  border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
@@ -88,40 +96,36 @@ body, html {
 
 .card-faceup {
   background-color: #FFFFFF; /* White when face up */
-  font-size: 3em; /* Show text when face up */
+  font-size: 2.3em; /* Show text when face up */
 }
 
 .game-controls {
   display: flex;
   justify-content: center;
-  gap: 70px; /* Spacing between buttons */
+  padding: 2px;
+  gap: 60px; /* Spacing between buttons */
   margin-top: 20px; /* Spacing between game board and buttons */
+  margin-bottom: 30px; /* Spacing between game board and buttons */
 }
 
-.button.start {
-  background-color: #8EFFE4; 
-  height: 60px;
-  width: 170px;
+.button.start, .button.reset {
+  height: 55px;
+  width: 150px;
   padding: 10px 20px;
   border: none;
   cursor: pointer;
   margin: 10px;
-  border-radius: 7px 7px 7px 7px;
+  border-radius: 7px;
   font-family: 'Ligconsolata', monospace;
-  font-size: 1.5em
+  font-size: 1.3em
+}
+
+.button.start {
+  background-color: #8EFFE4;
 }
 
 .button.reset {
   background-color: #FF9EA4; 
-  height: 60px;
-  width: 170px;
-  padding: 10px 20px;
-  border: none;
-  cursor: pointer;
-  margin: 10px;
-  border-radius: 10px 10px 10px 10px;
-  font-family: 'Ligconsolata', monospace;
-  font-size: 1.5em
 }
 
 /* Responsive adjustments can go here if needed */
@@ -130,4 +134,3 @@ body, html {
     grid-template-columns: repeat(3, 1fr); /* 3 columns for smaller screens */
   }
 }
-

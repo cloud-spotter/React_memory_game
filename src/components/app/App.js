@@ -12,12 +12,5 @@ function App() {
     </div>
   );
 }
-  //   return (
-//     <>
-//       <div className="header"><Header /></div>
-//       <div className="memory-game"><GameBoard /></div>
-//     </>
-//   );
-// }
 
 export default App;
