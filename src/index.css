@@ -10,6 +10,11 @@ body, html {
   padding: 0;
   font-family: 'Arial', sans-serif; /* Fallback if custom fonts are not available */
   background-color: #259FA7;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .header {
@@ -60,8 +65,7 @@ body, html {
   align-items: center; /* Center vertically */
 }
 
-.card-facedown {
-  background-color: #FFFACD; /* Light yellow when face down */
+.card-facedown, .card-faceup {
   height: 120px;
   width: 120px;
   display: flex;
@@ -69,23 +73,18 @@ body, html {
   align-items: center;
   cursor: pointer;
   border: 1px solid #145E69; /* Border for better visibility */
-  font-size: 0; /* Hide text when face down */
   border-radius: 10px 10px 10px 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
+.card-facedown {
+  background-color: #FFFACD; /* Light yellow when face down */
+  font-size: 0; /* Hide text when face down */
+}
+
 .card-faceup {
   background-color: #FFFFFF; /* White when face up */
-  height: 150px;
-  width: 140px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  border: 1px solid #145E69; /* Consistent border */
   font-size: 3em; /* Show text when face up */
-  border-radius: 10px 10px 10px 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 .game-controls {
@@ -95,7 +94,6 @@ body, html {
   margin-top: 20px; /* Spacing between game board and buttons */
 }
 
-/* TODO: sort size of buttons and font (too small at the moment) */
 .button.start {
   background-color: #8EFFE4; 
   height: 60px;
