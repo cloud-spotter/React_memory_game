@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Grid from '../grid/Grid';
 import GameControls from '../game-controls/GameControls';
+import GameOverModal from '../game-over-modal/GameOverModal';
 
 // Function to create card data for each card instance (to be mapped to each element in the cards array when initialised)
 const createCardData = (value) => ({ // () around {} indicates that the arrow function will directly return an object literal
@@ -24,6 +25,7 @@ const createPairSequence = (total) => {
     return [...sequence, ...sequence]; // Create a paired sequence of values
 };
 
+
 function GameBoard() {
     const totalCards = 16;
     const cardValues = shuffleArray(createPairSequence(totalCards)); // Create and shuffle cards
@@ -31,7 +33,15 @@ function GameBoard() {
     const [cards, setCards] = useState(cardValues.map(value => createCardData(value)));
     const [flippedIndices, setFlippedIndices] = useState([]);  // Track indices of currently flipped cards across renders
     const [moveCount, setMoveCount] = useState(0)
-        
+    const [isGameOverModalOpen, setIsGameOverModalOpen] = useState(false);
+    
+    // Check if game is over
+    useEffect(() => {
+        if (cards.every((card) => card.isMatched)) {
+            setIsGameOverModalOpen(true);
+        }
+    }, [cards]);
+
     const handleCardClick = (index) => {
         setMoveCount(previousMoveCount => previousMoveCount +1);
         
@@ -71,8 +81,13 @@ function GameBoard() {
         });
     };
 
-    // Game Over
-    const isGameOver = cards.every(card => card.isMatched);
+   const startGame = () => {
+    const shuffledCardValues = shuffleArray(createPairSequence(totalCards));
+    setCards(shuffledCardValues.map((value) => createCardData(value)));
+    setFlippedIndices([]);
+    setMoveCount(0);
+    setIsGameOverModalOpen(false);
+   }
 
     return (
     <>
@@ -80,6 +95,7 @@ function GameBoard() {
         <Grid cards={cards} handleCardClick={handleCardClick} />
       </div>
       <GameControls />
+      <GameOverModal isOpen={isGameOverModalOpen} closeModal={() => setIsGameOverModalOpen(false)} moveCount={moveCount} startGame={startGame}></GameOverModal>
     </>
     );
 }
