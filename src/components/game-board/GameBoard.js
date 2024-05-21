@@ -43,8 +43,6 @@ function GameBoard() {
     }, [cards]);
 
     const handleCardClick = (index) => {
-        setMoveCount(previousMoveCount => previousMoveCount +1);
-        
         setCards(currentCards => {
             // Create copy of current cards array for modifying
             let updatedCards = [...currentCards];
@@ -52,10 +50,10 @@ function GameBoard() {
             if (currentCards[index].isFlipped || currentCards[index].isMatched) {
                 return updatedCards
             }
-
+            
             // Flip the clicked card
             updatedCards[index].isFlipped = true;
-
+            
             // Temporary array to include indices of currently flipped cards PLUS the newly flipped card
             const newFlippedIndices = [...flippedIndices, index];
             // If there are 2 cards currently flipped, check their values for a match & if a match is found, mark them as matched
@@ -68,6 +66,8 @@ function GameBoard() {
                 } else {
                     setFlippedIndices(newFlippedIndices);
                 }
+                // Increment moveCount (after second card click)
+                setMoveCount(previousMoveCount => previousMoveCount +1);
             } else if (newFlippedIndices.length === 3) {  // Handle case when third card is clicked if two unmatched cards are already flipped (flip back the first two)
                 const [firstIndex, secondIndex] = newFlippedIndices;
                 updatedCards[firstIndex].isFlipped = false;
