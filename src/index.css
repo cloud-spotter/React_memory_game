@@ -108,7 +108,7 @@ body, html {
   margin-bottom: 30px; /* Spacing between game board and buttons */
 }
 
-.button.start, .button.reset {
+.button.start, .button.reset, .button.play-again {
   height: 55px;
   width: 150px;
   padding: 10px 20px;
@@ -126,6 +126,46 @@ body, html {
 
 .button.reset {
   background-color: #FF9EA4; 
+}
+
+.button.play-again {
+  background-color: #8EFFE4;
+  padding: 10px 0px;
+  margin: 25px;
+  font-size: 1em;
+  font-family: 'Ligconsolata', monospace;
+}
+
+.game-over-modal {
+  position: fixed;
+  top: 46%;
+  left: 52%;
+  transform: translate(-50%, -50%);
+  height: 250px;
+  width: 360px;
+  margin-top: 0px;
+  text-align: center;
+  padding: 20px 20px;
+  font-family: 'Love Ya Like A Sister', cursive;
+  font-size: 1.2em;
+  background-color: white; /* Ensures the modal has a visible background */
+  border: 1px solid #ccc; /* Border to define edges */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for better visibility */
+  z-index: 1000; /* Ensure the modal appears above other content */
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: hsla(0, 0%, 70%, 0.4); /* Black with 50% opacity */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999; /* Cover everything below the modal */
 }
 
 /* Responsive adjustments can go here if needed */
