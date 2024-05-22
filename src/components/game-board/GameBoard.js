@@ -82,7 +82,6 @@ function GameBoard() {
     };
 
    const startGame = () => {
-    console.log('starting game...')
     const shuffledCardValues = shuffleArray(createPairSequence(totalCards));
     setCards(shuffledCardValues.map((value) => createCardData(value)));
     setFlippedIndices([]);
