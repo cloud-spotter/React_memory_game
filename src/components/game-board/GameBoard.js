@@ -82,6 +82,7 @@ function GameBoard() {
     };
 
    const startGame = () => {
+    console.log('starting game...')
     const shuffledCardValues = shuffleArray(createPairSequence(totalCards));
     setCards(shuffledCardValues.map((value) => createCardData(value)));
     setFlippedIndices([]);
@@ -94,7 +95,7 @@ function GameBoard() {
       <div className='game-board' data-testid="game-board">
         <Grid cards={cards} handleCardClick={handleCardClick} />
       </div>
-      <GameControls />
+      <GameControls startGame={startGame}/>
       <GameOverModal isOpen={isGameOverModalOpen} closeModal={() => setIsGameOverModalOpen(false)} moveCount={moveCount} startGame={startGame}></GameOverModal>
     </>
     );
