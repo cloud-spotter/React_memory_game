@@ -26,7 +26,7 @@ body, html {
   gap: 20px; /* Space between header and game board */
   padding: 20px;
   position: relative; /* Add position relative to allow for shifting */
-  left: -20%; /* Slightly shift to the left to achieve perfect centering */
+  left: -18%; /* Slightly shift to the left to achieve perfect centering */
 }
 
 .header-container {
@@ -108,7 +108,7 @@ body, html {
   margin-bottom: 30px; /* Spacing between game board and buttons */
 }
 
-.button.start, .button.reset, .button.play-again {
+.button.reset, .button.play-again {
   height: 55px;
   width: 150px;
   padding: 10px 20px;
@@ -118,10 +118,6 @@ body, html {
   border-radius: 7px;
   font-family: 'Ligconsolata', monospace;
   font-size: 1.3em
-}
-
-.button.start {
-  background-color: #8EFFE4;
 }
 
 .button.reset {
