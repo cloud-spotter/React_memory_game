@@ -27,13 +27,15 @@ const createPairSequence = (total) => {
 
 
 function GameBoard() {
-    const totalCards = 16;
+    const totalCards = 8; // TODO: reset this to 16 (using small grid for development/testing functionality)
     const cardValues = shuffleArray(createPairSequence(totalCards)); // Create and shuffle cards
     // Initialise cards state (with shuffled values)
     const [cards, setCards] = useState(cardValues.map(value => createCardData(value)));
     const [flippedIndices, setFlippedIndices] = useState([]);  // Track indices of currently flipped cards across renders
     const [moveCount, setMoveCount] = useState(0)
     const [isGameOverModalOpen, setIsGameOverModalOpen] = useState(false);
+    const [timer, setTimer] = useState(0);
+    const [timerId, setTimerId] = useState(null);
     
     // Check if game is over
     useEffect(() => {
@@ -81,21 +83,55 @@ function GameBoard() {
         });
     };
 
-   const startGame = () => {
-    const shuffledCardValues = shuffleArray(createPairSequence(totalCards));
-    setCards(shuffledCardValues.map((value) => createCardData(value)));
-    setFlippedIndices([]);
-    setMoveCount(0);
-    setIsGameOverModalOpen(false);
-   }
+    // Timer functions to track the time taken for the user to match all pairs
+    const startTimer = () => {
+        stopTimer(); // Safety check! Ensure no time is running already
+        const id = setInterval(() => {
+            setTimer(timer => timer + 1); // Increment the timer state by one every second
+        }, 1000);
+        setTimerId(id); // Store the interval ID in state. This allows referencing/clearing that interval later & access to it throughout the component's lifecycle (e.g. allows control over it across renders & other state updates)
+    };
+
+    const stopTimer = () => {
+        if (timerId) { // Check whether there's a timer running
+            clearInterval(timerId); // Stop the timer using clearInterval with the stored interval ID
+            setTimerId(null); // Reset the timerId state to null (i.e. no active timer)
+        }
+    };
+
+    const resetTimer = () => {
+        stopTimer();
+        setTimer(0);
+    };
+
+    // Functions for game control (Start and Reset game)
+    // startGame: initialises all game settings and starts a new session
+    const startGame = () => {
+        const shuffledCardValues = shuffleArray(createPairSequence(totalCards));
+        setCards(shuffledCardValues.map((value) => createCardData(value)));
+        setFlippedIndices([]);
+        setMoveCount(0);
+        resetTimer();
+        startTimer();
+        setIsGameOverModalOpen(false);
+    };
+    // resetGame: clears the current game state and settings, preparing for a fresh start/replay
+    const resetGame = () => {
+        const shuffledCardValues = shuffleArray(createPairSequence(totalCards));
+        setCards(shuffledCardValues.map((value) => createCardData(value)));
+        setFlippedIndices([]);
+        setMoveCount(0);
+        resetTimer();
+        setIsGameOverModalOpen(false);
+    };
 
     return (
     <>
       <div className='game-board' data-testid="game-board">
         <Grid cards={cards} handleCardClick={handleCardClick} />
       </div>
-      <GameControls startGame={startGame}/>
-      <GameOverModal isOpen={isGameOverModalOpen} closeModal={() => setIsGameOverModalOpen(false)} moveCount={moveCount} startGame={startGame}></GameOverModal>
+      <GameControls startGame={startGame} resetGame={resetGame} />
+      <GameOverModal isOpen={isGameOverModalOpen} closeModal={() => setIsGameOverModalOpen(false)} moveCount={moveCount} startGame={startGame} resetGame={resetGame} timer={timer}></GameOverModal>
     </>
     );
 }
