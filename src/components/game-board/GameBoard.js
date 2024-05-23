@@ -36,6 +36,7 @@ function GameBoard() {
     const [isGameOverModalOpen, setIsGameOverModalOpen] = useState(false);
     const [timer, setTimer] = useState(0);
     const [timerId, setTimerId] = useState(null);
+    const [isGameActive, setIsGameActive] = useState(false);
     
     // Check if game is over
     useEffect(() => {
@@ -46,6 +47,11 @@ function GameBoard() {
     }, [cards]);
 
     const handleCardClick = (index) => {
+        if (!isGameActive) {
+            startGame(); // Start the game on the first card click
+            setIsGameActive(true);
+        }
+        
         setCards(currentCards => {
             // Create copy of current cards array for modifying
             let updatedCards = [...currentCards];
@@ -108,16 +114,21 @@ function GameBoard() {
     // Functions for game control (Start and Reset game)
     // startGame: initialises all game settings and starts a new session
     const startGame = () => {
+        if (!isGameActive) {
+            resetTimer();
+            startTimer();
+        }
+        
         const shuffledCardValues = shuffleArray(createPairSequence(totalCards));
         setCards(shuffledCardValues.map((value) => createCardData(value)));
         setFlippedIndices([]);
         setMoveCount(0);
-        resetTimer();
-        startTimer();
         setIsGameOverModalOpen(false);
     };
+    
     // resetGame: clears the current game state and settings, preparing for a fresh start/replay
     const resetGame = () => {
+        setIsGameActive(false);
         const shuffledCardValues = shuffleArray(createPairSequence(totalCards));
         setCards(shuffledCardValues.map((value) => createCardData(value)));
         setFlippedIndices([]);
@@ -131,8 +142,8 @@ function GameBoard() {
       <div className='game-board' data-testid="game-board">
         <Grid cards={cards} handleCardClick={handleCardClick} />
       </div>
-      <GameControls startGame={startGame} resetGame={resetGame} />
-      <GameOverModal isOpen={isGameOverModalOpen} closeModal={() => setIsGameOverModalOpen(false)} moveCount={moveCount} startGame={startGame} resetGame={resetGame} timer={timer}></GameOverModal>
+      <GameControls resetGame={resetGame} />
+      <GameOverModal isOpen={isGameOverModalOpen} closeModal={() => setIsGameOverModalOpen(false)} moveCount={moveCount} resetGame={resetGame} timer={timer}></GameOverModal>
     </>
     );
 }

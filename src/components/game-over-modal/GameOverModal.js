@@ -1,7 +1,7 @@
 import React from 'react';
 import Modal from 'react-modal';
 
-function GameOverModal({ isOpen, closeModal, moveCount, startGame, resetGame, timer }) {
+function GameOverModal({ isOpen, closeModal, moveCount, resetGame, timer }) {
     // Reset game (including stopping the timer) when the modal is closed
     const handleRequestClose = () => {
         resetGame(); 
@@ -17,7 +17,7 @@ function GameOverModal({ isOpen, closeModal, moveCount, startGame, resetGame, ti
               <div>You found all the pairs in {moveCount} moves.</div>
               <div>Time: {timer} seconds</div>
               <br></br>
-              <button className='button play-again' aria-label='Play Again' onClick={() => {resetGame(); startGame();}} >Play Again</button>
+              <button className='button play-again' aria-label='Play Again' onClick={() => {resetGame(); closeModal(); }} >Play Again</button>
             </Modal>
           </div>
         )}
