@@ -40,6 +40,7 @@ function GameBoard() {
     // Check if game is over
     useEffect(() => {
         if (cards.every((card) => card.isMatched)) {
+            stopTimer();
             setIsGameOverModalOpen(true);
         }
     }, [cards]);
