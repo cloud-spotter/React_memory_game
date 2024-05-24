@@ -107,28 +107,51 @@ describe('GameBoard', () => {
         expect(matchingCard).not.toHaveClass('card-facedown');
     });
 
-//   test('updates move count when cards are flipped', () => {
-//     render(<GameBoard />);
-//     const cards = screen.getAllByRole('button', { name: /card facedown/i });
-//     const firstCard = cards[0]
-//     const secondCard = cards[1]
+    // Test suggested by Claude (AI) in response to a request for feedback on my tests
+    test('increments move count when two cards are flipped', () => {
+        render(<GameBoard />);
+        const cards = screen.getAllByRole('button', { name: /card facedown/i });
+        const totalPairs = cards.length / 2;
+        const firstCard = cards[0];
+        fireEvent.click(firstCard); // Start the game before doing anything else (also initialise game settings, including shuffling the cards)
 
-//     fireEvent.click(firstCard);
-//     fireEvent.click(secondCard);
+        const nonMatchingCard = cards.find(card => card.getAttribute('data-value') !== cards[0].getAttribute('data-value'));
+        fireEvent.click(nonMatchingCard);
+    
+        // Simulate matching all remaining cards to trigger the game over modal
+        cards.slice(2).forEach((card) => { // Create a new array from cards[2] inclusive (excludes first two cards already clicked)
+        fireEvent.click(card);
+        const matchingCard = cards.find(
+            (c) => c !== card && c.getAttribute('data-value') === card.getAttribute('data-value') // Check for a card (c) that is not the same as the current card (card) but with the same data-value attribute
+        );
+        fireEvent.click(matchingCard);
+        });
+    
+        // Verify that the move count is displayed correctly in the game over modal
+        const expectedMoves = totalPairs + 1;
+        const moveCountDisplay = screen.getByText(/moves/i);
+        expect(moveCountDisplay).toHaveTextContent(`You found all the pairs in ${expectedMoves} moves.`);
+    });
 
-//     const moveCount = screen.getByText(/Moves: 2/i);
-//     expect(moveCount).toBeInTheDocument();
-//   });
+    test('displays game over modal when all pairs are matched', () => {
+        render(<GameBoard />);
+        const cards = screen.getAllByRole('button', { name: /card facedown/i });
+        const firstCard = cards[0];
+        fireEvent.click(firstCard); // Start the game before doing anything else (also initialise game settings, including shuffling the cards)
 
-//   test('ends the game when all cards are matched', () => {
-//     render(<GameBoard />);
-//     // Simulate matching all cards
-//     const cards = screen.getAllByRole('button', { name: /card/i });
-//     cards.forEach((card, index) => {
-//       card.setAttribute('data-testid', `card-${Math.floor(index / 2)}`);
-//       userEvent.click(card);
-//     });
-//     const gameOverMessage = screen.getByText(/Game Over/i);
-//     expect(gameOverMessage).toBeInTheDocument();
-//   });
+        const nonMatchingCard = cards.find(card => card.getAttribute('data-value') !== cards[0].getAttribute('data-value'));
+        fireEvent.click(nonMatchingCard);
+    
+        // Simulate matching all remaining cards to trigger the game over modal
+        cards.slice(2).forEach((card) => { // Create a new array from cards[2] inclusive (excludes first two cards already clicked)
+        fireEvent.click(card);
+        const matchingCard = cards.find(
+            (c) => c !== card && c.getAttribute('data-value') === card.getAttribute('data-value') // Check for a card (c) that is not the same as the current card (card) but with the same data-value attribute
+        );
+        fireEvent.click(matchingCard);
+        });
+        // Assert: Game Over text displays in the DOM
+        const gameOverMessage = screen.getByText(/Game Over/i);
+        expect(gameOverMessage).toBeInTheDocument();
+    });
 });

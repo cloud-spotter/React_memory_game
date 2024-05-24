@@ -27,7 +27,7 @@ const createPairSequence = (total) => {
 
 
 function GameBoard() {
-    const totalCards = 8; // TODO: reset this to 16 (using small grid for development/testing functionality)
+    const totalCards = 16; // TODO: reset this to 16 (using small grid for development/testing functionality)
     const cardValues = shuffleArray(createPairSequence(totalCards)); // Create and shuffle cards
     // Initialise cards state (with shuffled values)
     const [cards, setCards] = useState(cardValues.map(value => createCardData(value)));
