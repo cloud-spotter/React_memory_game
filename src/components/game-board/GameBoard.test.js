@@ -81,9 +81,9 @@ describe('GameBoard', () => {
         render(<GameBoard />);
         const cards = screen.getAllByRole('button', { name: /card facedown/i });
         const firstCard = cards[0];
-        const nonMatchingCard = cards.find(card => card.getAttribute('data-value') !== firstCard.getAttribute('data-value'));
+        fireEvent.click(firstCard); // Start game by clicking card (also reshuffles cards so do this before finding a matching card)
         
-        fireEvent.click(firstCard);
+        const nonMatchingCard = cards.find(card => card.getAttribute('data-value') !== firstCard.getAttribute('data-value'));
         fireEvent.click(nonMatchingCard);
         
         const thirdCard = cards.find(card => card.getAttribute('data-value') !== firstCard.getAttribute('data-value') && card.getAttribute('data-value') !== nonMatchingCard.getAttribute('data-value'));
@@ -98,9 +98,9 @@ describe('GameBoard', () => {
         render(<GameBoard />);
         const cards = screen.getAllByRole('button', { name: /card facedown/i });
         const firstCard = cards[0];
+        fireEvent.click(firstCard); // Start game by clicking card (also reshuffles cards so do this before finding a matching card)
+        
         const matchingCard = cards.find(card => card.getAttribute('data-value') === firstCard.getAttribute('data-value'));
-
-        fireEvent.click(firstCard);
         fireEvent.click(matchingCard);
 
         expect(firstCard).not.toHaveClass('card-facedown');
