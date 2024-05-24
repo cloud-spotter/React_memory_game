@@ -37,7 +37,7 @@ function GameBoard() {
     const [timer, setTimer] = useState(0);
     const [timerId, setTimerId] = useState(null);
     const [isGameActive, setIsGameActive] = useState(false);
-    
+
     // Check if game is over
     useEffect(() => {
         if (cards.every((card) => card.isMatched)) {
@@ -62,9 +62,9 @@ function GameBoard() {
             
             // Flip the clicked card
             updatedCards[index].isFlipped = true;
-            
             // Temporary array to include indices of currently flipped cards PLUS the newly flipped card
             const newFlippedIndices = [...flippedIndices, index];
+
             // If there are 2 cards currently flipped, check their values for a match & if a match is found, mark them as matched
             if (newFlippedIndices.length === 2) {
                 const [firstIndex, secondIndex] = newFlippedIndices;
@@ -72,6 +72,7 @@ function GameBoard() {
                     updatedCards[firstIndex].isMatched = true;
                     updatedCards[secondIndex].isMatched = true;
                     setFlippedIndices([]); // Remove matched cards from flipped indices tracker
+                    console.log(`Cards matched: Indices ${firstIndex} and ${secondIndex}, Value: ${updatedCards[firstIndex].value}`); // DEBUGGING
                 } else {
                     setFlippedIndices(newFlippedIndices);
                 }
@@ -86,6 +87,7 @@ function GameBoard() {
             } else {
                 setFlippedIndices(newFlippedIndices);
             }
+            console.log('Updated cards after click:', updatedCards); // DEBUGGING
             return updatedCards;
         });
     };

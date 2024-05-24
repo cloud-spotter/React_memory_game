@@ -1,6 +1,6 @@
 // tests/integration/GameBoard.test.js
 import React from 'react';
-import { render, screen, fireEvent, cleanup } from '@testing-library/react';
+import { render, screen, fireEvent, cleanup, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import GameBoard from './GameBoard';
 
@@ -15,11 +15,12 @@ describe('GameBoard', () => {
         expect(grid).toBeInTheDocument();
     });
 
-    test('renders start button', () => {
-        render(<GameBoard />);
-        const startButton = screen.getByRole('button', { name: /start/i });
-        expect(startButton).toBeInTheDocument();
-    });
+    // TEST REMOVED (Start button removed from design - hindered user experience)
+    // test('renders start button', () => {
+    //     render(<GameBoard />);
+    //     const startButton = screen.getByRole('button', { name: /start/i });
+    //     expect(startButton).toBeInTheDocument();
+    // });
 
     test('renders reset button', () => {
         render(<GameBoard />);
@@ -56,55 +57,55 @@ describe('GameBoard', () => {
         expect(firstRenderCardValues).not.toEqual(secondRenderCardValues);
     });
 
-    test('registers cards as matched when two matching cards are flipped', () => {
+    test('registers cards as matched when two matching cards are flipped', async () => {
         render(<GameBoard />);
-    
-        // Find two cards with the same value
         const cards = screen.getAllByRole('button', { name: /card facedown/i });
-        const firstCardValue = cards[0].getAttribute('data-value');
-        const matchingCard = cards.find(card => card.getAttribute('data-value') === firstCardValue && card !== cards[0]);
+        const firstCard = cards[0];
+        // Since clicking the first card starts a game, we will click a card
+        // first before doing anything else.
+        await userEvent.click(firstCard);
+        const cardValue = firstCard.getAttribute('data-value');
+        const secondCard = cards.find(card => (card.getAttribute('data-value') === cardValue && card !== firstCard));
+    
+        // Ensure both cards exist and are different elements
+        expect(firstCard).toBeInTheDocument();
+        expect(secondCard).toBeInTheDocument();
+        expect(firstCard).not.toBe(secondCard);
+    
+        await userEvent.click(secondCard);
+        expect(firstCard).toHaveClass('card-matched');
+        expect(secondCard).toHaveClass('card-matched');
+        });
+
+    test('unflips cards when two non-matching cards are already flipped and a third is clicked', () => {
+        render(<GameBoard />);
+        const cards = screen.getAllByRole('button', { name: /card facedown/i });
+        const firstCard = cards[0];
+        const nonMatchingCard = cards.find(card => card.getAttribute('data-value') !== firstCard.getAttribute('data-value'));
         
-        // Ensure a matching card is found
-        expect(matchingCard).not.toBeUndefined();
+        fireEvent.click(firstCard);
+        fireEvent.click(nonMatchingCard);
+        
+        const thirdCard = cards.find(card => card.getAttribute('data-value') !== firstCard.getAttribute('data-value') && card.getAttribute('data-value') !== nonMatchingCard.getAttribute('data-value'));
+        fireEvent.click(thirdCard);
 
-        // Flip the two matching cards
-        fireEvent.click(cards[0]);
-        fireEvent.click(matchingCard);
-
-        // Assert that both cards are registered as matched
-        expect(cards[0]).toHaveClass('card-matched');
-        expect(matchingCard).toHaveClass('card-matched');
+        expect(firstCard).toHaveClass('card-facedown');
+        expect(nonMatchingCard).toHaveClass('card-facedown');
+        expect(thirdCard).toHaveClass('card-faceup');
     });
 
-  test('unflips cards when two non-matching cards are already flipped and a third is clicked', () => {
-    render(<GameBoard />);
-    const cards = screen.getAllByRole('button', { name: /card facedown/i });
-    const firstCard = cards[0];
-    const nonMatchingCard = cards.find(card => card.getAttribute('data-value') !== firstCard.getAttribute('data-value'));
-    
-    fireEvent.click(firstCard);
-    fireEvent.click(nonMatchingCard);
-    
-    const thirdCard = cards.find(card => card.getAttribute('data-value') !== firstCard.getAttribute('data-value') && card.getAttribute('data-value') !== nonMatchingCard.getAttribute('data-value'));
-    fireEvent.click(thirdCard);
+    test('keeps cards flipped when two matching cards are flipped', () => {
+        render(<GameBoard />);
+        const cards = screen.getAllByRole('button', { name: /card facedown/i });
+        const firstCard = cards[0];
+        const matchingCard = cards.find(card => card.getAttribute('data-value') === firstCard.getAttribute('data-value'));
 
-    expect(firstCard).toHaveClass('card-facedown');
-    expect(nonMatchingCard).toHaveClass('card-facedown');
-    expect(thirdCard).toHaveClass('card-faceup');
-  });
+        fireEvent.click(firstCard);
+        fireEvent.click(matchingCard);
 
-  test('keeps cards flipped when two matching cards are flipped', () => {
-    render(<GameBoard />);
-    const cards = screen.getAllByRole('button', { name: /card facedown/i });
-    const firstCard = cards[0];
-    const matchingCard = cards.find(card => card.getAttribute('data-value') === firstCard.getAttribute('data-value'));
-
-    fireEvent.click(firstCard);
-    fireEvent.click(matchingCard);
-
-    expect(firstCard).not.toHaveClass('card-facedown');
-    expect(matchingCard).not.toHaveClass('card-facedown');
-  });
+        expect(firstCard).not.toHaveClass('card-facedown');
+        expect(matchingCard).not.toHaveClass('card-facedown');
+    });
 
 //   test('updates move count when cards are flipped', () => {
 //     render(<GameBoard />);
