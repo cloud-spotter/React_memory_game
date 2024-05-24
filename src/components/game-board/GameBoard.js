@@ -72,7 +72,6 @@ function GameBoard() {
                     updatedCards[firstIndex].isMatched = true;
                     updatedCards[secondIndex].isMatched = true;
                     setFlippedIndices([]); // Remove matched cards from flipped indices tracker
-                    console.log(`Cards matched: Indices ${firstIndex} and ${secondIndex}, Value: ${updatedCards[firstIndex].value}`); // DEBUGGING
                 } else {
                     setFlippedIndices(newFlippedIndices);
                 }
@@ -87,7 +86,6 @@ function GameBoard() {
             } else {
                 setFlippedIndices(newFlippedIndices);
             }
-            console.log('Updated cards after click:', updatedCards); // DEBUGGING
             return updatedCards;
         });
     };
