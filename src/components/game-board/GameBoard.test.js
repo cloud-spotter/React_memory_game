@@ -5,38 +5,46 @@ import userEvent from '@testing-library/user-event';
 import GameBoard from './GameBoard';
 
 describe('GameBoard', () => {
+    let setIsGameActive;
+    
     beforeEach(() => {
         cleanup();
+        setIsGameActive = jest.fn();
     });
+
+    // Establish props to pass to GameBoard since lifting isGameActive state up to App from GameBoard
+    const renderGameBoard = (props = {}) => {  // assign constant to arrow function with one param (props) which defaults to an empty object ({}) if not provided
+        return render(<GameBoard isGameActive={false} setIsGameActive={setIsGameActive} {...props} />);
+    }; // {...props} - spread operator used to pass any additional properties from the props object (potentially overriding the default props provided - isGameActive & setIsGameActive)
     
     test('renders the grid component', () => {
-        render(<GameBoard />);
+        renderGameBoard();
         const grid = screen.getByTestId('grid');
         expect(grid).toBeInTheDocument();
     });
 
     // TEST REMOVED (Start button removed from design - hindered user experience)
     // test('renders start button', () => {
-    //     render(<GameBoard />);
+    //     renderGameBoard();
     //     const startButton = screen.getByRole('button', { name: /start/i });
     //     expect(startButton).toBeInTheDocument();
     // });
 
     test('renders reset button', () => {
-        render(<GameBoard />);
+        renderGameBoard();
         const resetButton = screen.getByRole('button', { name: /reset/i });
         expect(resetButton).toBeInTheDocument();
     });
 
     test('flips a facedown-card when clicked', () => {
-        render(<GameBoard />);
+        renderGameBoard();
         const card = screen.getAllByRole('button', { name: "Card facedown" })[0];
         fireEvent.click(card);
         expect(card).toHaveClass('card-faceup');
     });
 
     test('shuffles the cards randomly each render', () => {        
-        const { container: firstContainer } = render(<GameBoard />);
+        const { container: firstContainer } = renderGameBoard();
         // Flip all cards in the first render
         const firstRenderCards = screen.getAllByRole('button', { name: "Card facedown" }); // Search component currently rendered for facedown cards first (as that's their initial state)
         firstRenderCards.forEach(card => {
@@ -46,7 +54,7 @@ describe('GameBoard', () => {
 
         cleanup();  // Unmount component currently rendered (firstContainer) & clear up any side effects 
 
-        const { container: secondContainer } = render(<GameBoard />);
+        const { container: secondContainer } = renderGameBoard();
         // Flip all cards in the second render
         const secondRenderCards = screen.getAllByRole('button', { name: "Card facedown" });
         secondRenderCards.forEach(card => {
@@ -58,7 +66,7 @@ describe('GameBoard', () => {
     });
 
     test('registers cards as matched when two matching cards are flipped', async () => {
-        render(<GameBoard />);
+        renderGameBoard();
         const cards = screen.getAllByRole('button', { name: /card facedown/i });
         const firstCard = cards[0];
         // Since clicking the first card starts a game, we will click a card
@@ -78,7 +86,7 @@ describe('GameBoard', () => {
         });
 
     test('unflips cards when two non-matching cards are already flipped and a third is clicked', () => {
-        render(<GameBoard />);
+        renderGameBoard();
         const cards = screen.getAllByRole('button', { name: /card facedown/i });
         const firstCard = cards[0];
         fireEvent.click(firstCard); // Start game by clicking card (also reshuffles cards so do this before finding a matching card)
@@ -95,7 +103,7 @@ describe('GameBoard', () => {
     });
 
     test('keeps cards flipped when two matching cards are flipped', () => {
-        render(<GameBoard />);
+        renderGameBoard();
         const cards = screen.getAllByRole('button', { name: /card facedown/i });
         const firstCard = cards[0];
         fireEvent.click(firstCard); // Start game by clicking card (also reshuffles cards so do this before finding a matching card)
@@ -109,7 +117,7 @@ describe('GameBoard', () => {
 
     // Test suggested by Claude (AI) in response to a request for feedback on my tests
     test('increments move count when two cards are flipped', () => {
-        render(<GameBoard />);
+        renderGameBoard();
         const cards = screen.getAllByRole('button', { name: /card facedown/i });
         const totalPairs = cards.length / 2;
         const firstCard = cards[0];
@@ -134,7 +142,7 @@ describe('GameBoard', () => {
     });
 
     test('displays game over modal when all pairs are matched', () => {
-        render(<GameBoard />);
+        renderGameBoard();
         const cards = screen.getAllByRole('button', { name: /card facedown/i });
         const firstCard = cards[0];
         fireEvent.click(firstCard); // Start the game before doing anything else (also initialise game settings, including shuffling the cards)

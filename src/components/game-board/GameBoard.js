@@ -26,25 +26,26 @@ const createPairSequence = (total) => {
 };
 
 
-function GameBoard() {
+function GameBoard({ isGameActive, setIsGameActive }) {
     const totalCards = 16; // TODO: reset this to 16 (using small grid for development/testing functionality)
     const cardValues = shuffleArray(createPairSequence(totalCards)); // Create and shuffle cards
-    // Initialise cards state (with shuffled values)
-    const [cards, setCards] = useState(cardValues.map(value => createCardData(value)));
+    
+    const [cards, setCards] = useState(cardValues.map(value => createCardData(value))); // Initialise cards state (with shuffled values)
     const [flippedIndices, setFlippedIndices] = useState([]);  // Track indices of currently flipped cards across renders
     const [moveCount, setMoveCount] = useState(0)
     const [isGameOverModalOpen, setIsGameOverModalOpen] = useState(false);
     const [timer, setTimer] = useState(0);
     const [timerId, setTimerId] = useState(null);
-    const [isGameActive, setIsGameActive] = useState(false);
+
 
     // Check if game is over
     useEffect(() => {
         if (cards.every((card) => card.isMatched)) {
             stopTimer();
             setIsGameOverModalOpen(true);
+            setIsGameActive(false);
         }
-    }, [cards]);
+    }, [cards, setIsGameActive]);
 
     const handleCardClick = (index) => {
         if (!isGameActive) {
