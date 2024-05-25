@@ -27,7 +27,7 @@ const createPairSequence = (total) => {
 
 
 function GameBoard({ isGameActive, setIsGameActive }) {
-    const totalCards = 16; // TODO: reset this to 16 (using small grid for development/testing functionality)
+    const totalCards = 8; // TODO: reset this to 16 (using small grid for development/testing functionality)
     const cardValues = shuffleArray(createPairSequence(totalCards)); // Create and shuffle cards
     
     const [cards, setCards] = useState(cardValues.map(value => createCardData(value))); // Initialise cards state (with shuffled values)
@@ -48,11 +48,14 @@ function GameBoard({ isGameActive, setIsGameActive }) {
     }, [cards, setIsGameActive]);
 
     const handleCardClick = (index) => {
+        console.log('Card clicked:', index); // DEBUGGING
+        console.log('isGameActive:', isGameActive);  // DEBUGGING
         if (!isGameActive) {
+            console.log('starting game')
             startGame(); // Start the game on the first card click
-            setIsGameActive(true);
+            console.log('isGameActive after game has started (should be true):', isGameActive);  // DEBUGGING
         }
-        
+        console.log('setting cards') // DEBUGGING
         setCards(currentCards => {
             // Create copy of current cards array for modifying
             let updatedCards = [...currentCards];
@@ -65,7 +68,8 @@ function GameBoard({ isGameActive, setIsGameActive }) {
             updatedCards[index].isFlipped = true;
             // Temporary array to include indices of currently flipped cards PLUS the newly flipped card
             const newFlippedIndices = [...flippedIndices, index];
-
+            
+            console.log('checking the 2 flipped cards for a match') // DEBUGGING
             // If there are 2 cards currently flipped, check their values for a match & if a match is found, mark them as matched
             if (newFlippedIndices.length === 2) {
                 const [firstIndex, secondIndex] = newFlippedIndices;
@@ -116,14 +120,19 @@ function GameBoard({ isGameActive, setIsGameActive }) {
     // startGame: initialises all game settings and starts a new session
     const startGame = () => {
         if (!isGameActive) {
+            console.log('setting isGameActive to true') // DEBUGGING
+            setIsGameActive(true);
+            console.log('isGameActive:', isGameActive)  //DEBUGGING
             resetTimer();
             startTimer();
         }
-        
+        console.log('shuffling cards')  //DEBUGGING
         const shuffledCardValues = shuffleArray(createPairSequence(totalCards));
         setCards(shuffledCardValues.map((value) => createCardData(value)));
         setFlippedIndices([]);
         setMoveCount(0);
+        console.log('setting isGameOverModalOpen to false')  //DEBUGGING
+        console.log('isGameOverModalOpen:', isGameOverModalOpen)  //DEBUGGING
         setIsGameOverModalOpen(false);
     };
     

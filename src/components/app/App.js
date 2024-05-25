@@ -11,7 +11,7 @@ function App() {
       <Header />
       <div className="game-container">
         {/* Passing both the state and the state updater function as props allows child components to modify the state in the parent component. */}
-        <GameBoard setIsGameActive={setIsGameActive} isGameActive={isGameActive} />
+        <GameBoard isGameActive={isGameActive} setIsGameActive={setIsGameActive} />
       </div>
       <div>
         {/* Conditionally render Footer if game is not active */}

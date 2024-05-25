@@ -1,21 +1,19 @@
 // tests/integration/GameBoard.test.js
 import React from 'react';
-import { render, screen, fireEvent, cleanup, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, cleanup } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import GameBoard from './GameBoard';
 
+// Establish props to pass to GameBoard since lifting isGameActive state up to App from GameBoard
+const renderGameBoard = (props = {}) => {  // assign constant to arrow function with one param (props) which defaults to an empty object ({}) if not provided
+    const setIsGameActive = jest.fn() // Mock function for state setter prop
+    return render(<GameBoard isGameActive={false} setIsGameActive={setIsGameActive} {...props} />);
+}; // {...props} - spread operator used to pass any additional properties from the props object (potentially overriding the default props provided - isGameActive & setIsGameActive)
+
 describe('GameBoard', () => {
-    let setIsGameActive;
-    
     beforeEach(() => {
         cleanup();
-        setIsGameActive = jest.fn();
     });
-
-    // Establish props to pass to GameBoard since lifting isGameActive state up to App from GameBoard
-    const renderGameBoard = (props = {}) => {  // assign constant to arrow function with one param (props) which defaults to an empty object ({}) if not provided
-        return render(<GameBoard isGameActive={false} setIsGameActive={setIsGameActive} {...props} />);
-    }; // {...props} - spread operator used to pass any additional properties from the props object (potentially overriding the default props provided - isGameActive & setIsGameActive)
     
     test('renders the grid component', () => {
         renderGameBoard();
@@ -80,7 +78,14 @@ describe('GameBoard', () => {
         expect(secondCard).toBeInTheDocument();
         expect(firstCard).not.toBe(secondCard);
     
+        console.log('firstCard value:', firstCard.getAttribute('data-value')) // DEBUGGING
+        console.log('(firstCard) cardValue value:', cardValue) // DEBUGGING
+        console.log('secondCard value before click:', secondCard.getAttribute('data-value')) // DEBUGGING
+        // screen.debug(); // DEBUGGING
+        
         await userEvent.click(secondCard);
+        console.log('firstCard value after secondCard click:', firstCard.getAttribute('data-value')) // DEBUGGING
+        console.log('secondCard value after click:', secondCard.getAttribute('data-value')) // DEBUGGING
         expect(firstCard).toHaveClass('card-matched');
         expect(secondCard).toHaveClass('card-matched');
         });
