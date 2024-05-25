@@ -164,6 +164,19 @@ body, html {
   z-index: 999; /* Cover everything below the modal */
 }
 
+.footer {
+  position: fixed;
+  bottom: 10px; /* Adjust as needed to give some space from the bottom */
+  right: 15px; /* Adjust as needed to give some space from the right edge */
+  background: transparent;
+  color: #8EFFE4;
+  text-align: right;
+  padding: 5px 10px; /* Smaller padding for a more compact look */
+  font-size: 0.9em; 
+  font-family: 'Love Ya Like A Sister', cursive; 
+}
+
+
 /* Responsive adjustments can go here if needed */
 @media (max-width: 768px) {
   .game-board {

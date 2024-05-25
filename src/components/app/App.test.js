@@ -23,9 +23,9 @@ describe('App', () => {
     expect(gameBoardElement).toBeInTheDocument();
   });
 
-// test('renders Footer component', () => {
-//   render(<App />);
-//   const footerElement = screen.getByText(/Created by/i);
-//   expect(footerElement).toBeInTheDocument();
-// });
+test('renders Footer component', () => {
+  render(<App />);
+  const footerElement = screen.getByText(/Created by/i);
+  expect(footerElement).toBeInTheDocument();
+});
 });
