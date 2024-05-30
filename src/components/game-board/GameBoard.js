@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import Grid from '../grid/Grid';
 import GameControls from '../game-controls/GameControls';
 import GameOverModal from '../game-over-modal/GameOverModal';
@@ -37,23 +37,13 @@ function GameBoard({ isGameActive, setIsGameActive }) {
     const [timer, setTimer] = useState(0);
     const [timerId, setTimerId] = useState(null);
 
-
-    // Check if game is over
-    useEffect(() => {
-        if (cards.every((card) => card.isMatched)) {
-            stopTimer();
-            setIsGameOverModalOpen(true);
-            setIsGameActive(false);
-        }
-    }, [cards, setIsGameActive]);
-
     const handleCardClick = (index) => {
-        console.log('Card clicked:', index); // DEBUGGING
+        console.log('Card clicked (index):', index); // DEBUGGING
         console.log('isGameActive:', isGameActive);  // DEBUGGING
         if (!isGameActive) {
             console.log('starting game')
             startGame(); // Start the game on the first card click
-            console.log('isGameActive after game has started (should be true):', isGameActive);  // DEBUGGING
+            console.log('isGameActive, after game has started (should be true):', isGameActive);  // DEBUGGING
         }
         console.log('setting cards') // DEBUGGING
         setCards(currentCards => {
@@ -104,12 +94,12 @@ function GameBoard({ isGameActive, setIsGameActive }) {
         setTimerId(id); // Store the interval ID in state. This allows referencing/clearing that interval later & access to it throughout the component's lifecycle (e.g. allows control over it across renders & other state updates)
     };
 
-    const stopTimer = () => {
+    const stopTimer = useCallback(() => {
         if (timerId) { // Check whether there's a timer running
             clearInterval(timerId); // Stop the timer using clearInterval with the stored interval ID
             setTimerId(null); // Reset the timerId state to null (i.e. no active timer)
         }
-    };
+    }, [timerId]);
 
     const resetTimer = () => {
         stopTimer();
@@ -120,25 +110,27 @@ function GameBoard({ isGameActive, setIsGameActive }) {
     // startGame: initialises all game settings and starts a new session
     const startGame = () => {
         if (!isGameActive) {
-            console.log('setting isGameActive to true') // DEBUGGING
-            setIsGameActive(true);
-            console.log('isGameActive:', isGameActive)  //DEBUGGING
             resetTimer();
             startTimer();
+            console.log('setting isGameActive to true') // DEBUGGING
+            setIsGameActive(true);
+            isGameActive = true;  // also update current copy
+            console.log('isGameActive:', isGameActive)  //DEBUGGING
         }
         console.log('shuffling cards')  //DEBUGGING
         const shuffledCardValues = shuffleArray(createPairSequence(totalCards));
         setCards(shuffledCardValues.map((value) => createCardData(value)));
         setFlippedIndices([]);
         setMoveCount(0);
-        console.log('setting isGameOverModalOpen to false')  //DEBUGGING
-        console.log('isGameOverModalOpen:', isGameOverModalOpen)  //DEBUGGING
         setIsGameOverModalOpen(false);
     };
     
     // resetGame: clears the current game state and settings, preparing for a fresh start/replay
     const resetGame = () => {
+        console.log('setting isGameActive to false')  //DEBUGGING
         setIsGameActive(false);
+        isGameActive = false;
+        console.log('isGameActive:', isGameActive)  //DEBUGGING
         const shuffledCardValues = shuffleArray(createPairSequence(totalCards));
         setCards(shuffledCardValues.map((value) => createCardData(value)));
         setFlippedIndices([]);
@@ -146,6 +138,21 @@ function GameBoard({ isGameActive, setIsGameActive }) {
         resetTimer();
         setIsGameOverModalOpen(false);
     };
+
+    // DEBUGGING - log everytime isGameActive state changes
+    useEffect(() => {
+        console.log('isGameActive changed:', isGameActive);
+      }, [isGameActive]);
+
+    // Check if game is over
+    useEffect(() => {
+        if (cards.every((card) => card.isMatched)) {
+            stopTimer();
+            setIsGameOverModalOpen(true);
+            setIsGameActive(false);
+            isGameActive = false;
+        }
+    }, [cards, stopTimer, setIsGameActive]);
 
     return (
     <>

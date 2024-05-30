@@ -69,20 +69,22 @@ describe('GameBoard', () => {
         const firstCard = cards[0];
         // Since clicking the first card starts a game, we will click a card
         // first before doing anything else.
+        console.log('Test: clicking firstCard') // DEBUGGING
         await userEvent.click(firstCard);
         const cardValue = firstCard.getAttribute('data-value');
         const secondCard = cards.find(card => (card.getAttribute('data-value') === cardValue && card !== firstCard));
-    
+        
         // Ensure both cards exist and are different elements
         expect(firstCard).toBeInTheDocument();
         expect(secondCard).toBeInTheDocument();
         expect(firstCard).not.toBe(secondCard);
-    
-        console.log('firstCard value:', firstCard.getAttribute('data-value')) // DEBUGGING
-        console.log('(firstCard) cardValue value:', cardValue) // DEBUGGING
+        
+        console.log('firstCard value after click:', firstCard.getAttribute('data-value')) // DEBUGGING
+        console.log('(firstCard) cardValue value (after click):', cardValue) // DEBUGGING
         console.log('secondCard value before click:', secondCard.getAttribute('data-value')) // DEBUGGING
         // screen.debug(); // DEBUGGING
         
+        console.log('Test: clicking secondCard') // DEBUGGING
         await userEvent.click(secondCard);
         console.log('firstCard value after secondCard click:', firstCard.getAttribute('data-value')) // DEBUGGING
         console.log('secondCard value after click:', secondCard.getAttribute('data-value')) // DEBUGGING
