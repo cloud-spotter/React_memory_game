@@ -5,7 +5,7 @@ import Card from './Card'
 
 describe('Card', () => {
   const mockCardFacedown = {
-    value: 'A',
+    image: '/images/animal_card_set/beaver.png',
     isFlipped: false,
     isMatched: false
   };
@@ -35,12 +35,12 @@ describe('Card', () => {
     // Simulate parent component behaviour (here by updating props through a re-render)
     render(<Card card={mockCardFaceup} handleCardClick={mockHandleCardClick} />);
     // Query Card again to verify changed state
-    const cardAfterClick = screen.getByRole('button', { name: 'Card faceup with value A'});
+    const cardAfterClick = screen.getByRole('button', { name: 'Card faceup with image'});
     expect(cardAfterClick).toHaveClass('card-faceup');
   });
 
 
-  test('displays the card value when flipped and verifies aria-label', () => {
+  test('displays the card image when flipped', () => {
     const mockHandleCardClick = jest.fn();
     render(<Card card={mockCardFacedown} handleCardClick={mockHandleCardClick} />);
     
@@ -49,11 +49,12 @@ describe('Card', () => {
     
     // Re-render with card faceup
     render(<Card card={mockCardFaceup} handleCardClick={mockHandleCardClick} />);
-    // After flipping, the card should display its value
-    const cardAfterClick = screen.getByRole('button', { name: "Card faceup with value A" });
-    expect(cardAfterClick).toHaveTextContent("A");
+    // After flipping, the card should display its image
+    const cardAfterClick = screen.getByRole('button', { name: "Card faceup with image" }); // Query the button element representing the card first
+    const cardImage = cardAfterClick.querySelector('img'); // Then, query the img element within the button
+    expect(cardImage).toHaveAttribute('src', mockCardFaceup.image);  // Check the img element has the correct src attribute
 
-    // Verify the aria-label has been updated to reflect the card's new state
-    expect(cardAfterClick).toHaveAttribute('aria-label', 'Card faceup with value A');
+    // Verify the aria-label has been updated to reflect the card's new state         // TODO: update test and code to include better aria-labels for images
+  //   expect(cardAfterClick).toHaveAttribute('aria-label', 'Card faceup with value A');
   });
 });

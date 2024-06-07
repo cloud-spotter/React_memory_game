@@ -3,6 +3,11 @@ import React from 'react';
 import { render, screen, fireEvent, cleanup, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import GameBoard from './GameBoard';
+import Modal from 'react-modal';
+
+// Avoids warning to set the app element for 'react-modal' (along with modal import above)
+// (ensures the modal library works properly & screen readers handle modal properly when displayed)
+Modal.setAppElement(document.createElement('div')); 
 
 describe('GameBoard', () => {
     beforeEach(() => {
@@ -35,26 +40,35 @@ describe('GameBoard', () => {
         expect(card).toHaveClass('card-faceup');
     });
 
-    test('shuffles the cards randomly each render', () => {        
+    test('shuffles the cards randomly each render', () => {
         const { container: firstContainer } = render(<GameBoard />);
-        // Flip all cards in the first render
-        const firstRenderCards = screen.getAllByRole('button', { name: "Card facedown" }); // Search component currently rendered for facedown cards first (as that's their initial state)
-        firstRenderCards.forEach(card => {
-            fireEvent.click(card);  // Then turn each card over to check their values
-        });
-        const firstRenderCardValues = firstRenderCards.map(card => card.textContent);
+        const firstRenderCards = screen.getAllByRole('button', { name: "Card facedown" });
 
-        cleanup();  // Unmount component currently rendered (firstContainer) & clear up any side effects 
+        firstRenderCards.forEach(card => {
+            fireEvent.click(card);
+        });
+        // Map over each card, querying for an 'img' element, returning the image 'src' attribute, if the image exists
+        // If the image does not exist (e.g. card is not flipped/doesn't contain an image), return null
+        const firstRenderCardImages = firstRenderCards.map(card => {
+            const img = card.querySelector('img');
+            return img ? img.src : null;
+        });
+
+        cleanup();
 
         const { container: secondContainer } = render(<GameBoard />);
-        // Flip all cards in the second render
         const secondRenderCards = screen.getAllByRole('button', { name: "Card facedown" });
+
         secondRenderCards.forEach(card => {
             fireEvent.click(card);
         });
-        const secondRenderCardValues = secondRenderCards.map(card => card.textContent);
-        
-        expect(firstRenderCardValues).not.toEqual(secondRenderCardValues);
+
+        const secondRenderCardImages = secondRenderCards.map(card => {
+            const img = card.querySelector('img');
+            return img ? img.src : null;
+        });
+
+        expect(firstRenderCardImages).not.toEqual(secondRenderCardImages);
     });
 
     test('registers cards as matched when two matching cards are flipped', async () => {
