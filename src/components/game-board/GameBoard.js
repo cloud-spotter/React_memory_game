@@ -4,8 +4,8 @@ import GameControls from '../game-controls/GameControls';
 import GameOverModal from '../game-over-modal/GameOverModal';
 
 // Function to create card data for each card instance (to be mapped to each element in the cards array when initialised)
-const createCardData = (value) => ({ // () around {} indicates that the arrow function will directly return an object literal
-    value: value, 
+const createCardData = (image) => ({ // () around {} indicates that the arrow function will directly return an object literal
+    image: image, 
     isFlipped: false,
     isMatched: false
 });
@@ -21,16 +21,27 @@ const shuffleArray = (array) => {
 }
 
 const createPairSequence = (total) => {
-    const sequence = [...Array(Math.floor(total / 2)).keys()].map(i => i + 1);
-    return [...sequence, ...sequence]; // Create a paired sequence of values
+    const imagePaths = [
+        '/images/animal_card_set/beaver.png',
+        '/images/animal_card_set/capybara.png',
+        '/images/animal_card_set/hedgehog.png',
+        '/images/animal_card_set/lemur.png',
+        '/images/animal_card_set/llama.png',
+        '/images/animal_card_set/puffin.png',
+        '/images/animal_card_set/raccoon.png',
+        '/images/animal_card_set/squirrel.png'
+    ];
+    // Create a paired sequence of images
+    const sequence = [...imagePaths, ...imagePaths];
+    return shuffleArray(sequence); 
 };
 
 
 function GameBoard() {
     const totalCards = 16; // TODO: reset this to 16 (using small grid for development/testing functionality)
-    const cardValues = shuffleArray(createPairSequence(totalCards)); // Create and shuffle cards
+    const cardImages = createPairSequence(totalCards); // Create and shuffle cards
     // Initialise cards state (with shuffled values)
-    const [cards, setCards] = useState(cardValues.map(value => createCardData(value)));
+    const [cards, setCards] = useState(cardImages.map(image => createCardData(image)));
     const [flippedIndices, setFlippedIndices] = useState([]);  // Track indices of currently flipped cards across renders
     const [moveCount, setMoveCount] = useState(0)
     const [isGameOverModalOpen, setIsGameOverModalOpen] = useState(false);
@@ -68,7 +79,7 @@ function GameBoard() {
             // If there are 2 cards currently flipped, check their values for a match & if a match is found, mark them as matched
             if (newFlippedIndices.length === 2) {
                 const [firstIndex, secondIndex] = newFlippedIndices;
-                if (updatedCards[firstIndex].value === updatedCards[secondIndex].value) {
+                if (updatedCards[firstIndex].image === updatedCards[secondIndex].image) {
                     updatedCards[firstIndex].isMatched = true;
                     updatedCards[secondIndex].isMatched = true;
                     setFlippedIndices([]); // Remove matched cards from flipped indices tracker
@@ -119,8 +130,8 @@ function GameBoard() {
             startTimer();
         }
         
-        const shuffledCardValues = shuffleArray(createPairSequence(totalCards));
-        setCards(shuffledCardValues.map((value) => createCardData(value)));
+        const shuffledCardImages = createPairSequence(totalCards);
+        setCards(shuffledCardImages.map((image) => createCardData(image)));
         setFlippedIndices([]);
         setMoveCount(0);
         setIsGameOverModalOpen(false);
@@ -129,8 +140,8 @@ function GameBoard() {
     // resetGame: clears the current game state and settings, preparing for a fresh start/replay
     const resetGame = () => {
         setIsGameActive(false);
-        const shuffledCardValues = shuffleArray(createPairSequence(totalCards));
-        setCards(shuffledCardValues.map((value) => createCardData(value)));
+        const shuffledCardImages = createPairSequence(totalCards);
+        setCards(shuffledCardImages.map((image) => createCardData(image)));
         setFlippedIndices([]);
         setMoveCount(0);
         resetTimer();
