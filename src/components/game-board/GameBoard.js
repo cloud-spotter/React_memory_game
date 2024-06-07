@@ -24,7 +24,7 @@ const createPairSequence = (total) => {
     const imagePaths = [
         '/images/animal_card_set/beaver.png',
         '/images/animal_card_set/capybara.png',
-        '/images/animal_card_set/hedgehog.png',
+        '/images/animal_card_set/frog.png',
         '/images/animal_card_set/lemur.png',
         '/images/animal_card_set/llama.png',
         '/images/animal_card_set/puffin.png',
