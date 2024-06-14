@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import Grid from '../grid/Grid';
 import GameControls from '../game-controls/GameControls';
 import GameOverModal from '../game-over-modal/GameOverModal';
@@ -20,26 +21,37 @@ const shuffleArray = (array) => {
     return array;
 }
 
-const createPairSequence = (total) => {
-    const imagePaths = [
-        '/images/animal_card_set/beaver.png',
-        '/images/animal_card_set/capybara.png',
-        '/images/animal_card_set/frog.png',
-        '/images/animal_card_set/lemur.png',
-        '/images/animal_card_set/llama.png',
-        '/images/animal_card_set/puffin.png',
-        '/images/animal_card_set/raccoon.png',
-        '/images/animal_card_set/squirrel.png'
-    ];
+const createPairSequence = (numPairs, imageSet) => {
+    const imageSets = {
+        animals: [
+            '/images/animal_card_set/beaver.png',
+            '/images/animal_card_set/capybara.png',
+            '/images/animal_card_set/frog.png',
+            '/images/animal_card_set/lemur.png',
+            '/images/animal_card_set/llama.png',
+            '/images/animal_card_set/puffin.png',
+            '/images/animal_card_set/raccoon.png',
+            '/images/animal_card_set/squirrel.png'
+        ],
+        totoro: [
+            // TODO: add images to card set
+        ]
+    };
+    const selectedImages = imageSets[imageSet].slice(0, numPairs);
     // Create a paired sequence of images
-    const sequence = [...imagePaths, ...imagePaths];
+    const sequence = [...selectedImages, ...selectedImages];
     return shuffleArray(sequence); 
 };
 
 
 function GameBoard() {
-    const totalCards = 16; // TODO: reset this to 16 (using small grid for development/testing functionality)
-    const cardImages = createPairSequence(totalCards); // Create and shuffle cards
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const numPairs = parseInt(queryParams.get('numPairs')) || 8; // Default to 8 pairs if not specified
+    const imageSet = queryParams.get('imageSet') || 'animals'; // Default to 'animals' if not specified
+    
+    const totalCards = numPairs * 2; 
+    const cardImages = createPairSequence(numPairs, imageSet); // Create and shuffle cards
     // Initialise cards state (with shuffled values)
     const [cards, setCards] = useState(cardImages.map(image => createCardData(image)));
     const [flippedIndices, setFlippedIndices] = useState([]);  // Track indices of currently flipped cards across renders
@@ -130,7 +142,7 @@ function GameBoard() {
             startTimer();
         }
         
-        const shuffledCardImages = createPairSequence(totalCards);
+        const shuffledCardImages = createPairSequence(numPairs, imageSet);
         setCards(shuffledCardImages.map((image) => createCardData(image)));
         setFlippedIndices([]);
         setMoveCount(0);
@@ -140,7 +152,7 @@ function GameBoard() {
     // resetGame: clears the current game state and settings, preparing for a fresh start/replay
     const resetGame = () => {
         setIsGameActive(false);
-        const shuffledCardImages = createPairSequence(totalCards);
+        const shuffledCardImages = createPairSequence(numPairs, imageSet);
         setCards(shuffledCardImages.map((image) => createCardData(image)));
         setFlippedIndices([]);
         setMoveCount(0);
@@ -153,7 +165,19 @@ function GameBoard() {
       <div className='game-board' data-testid="game-board">
         <Grid cards={cards} handleCardClick={handleCardClick} />
       </div>
-      <GameControls resetGame={resetGame} />
+      <GameControls 
+        resetGame={resetGame}
+        setNumPairs={numPairs => {
+            queryParams.set('numPairs', numPairs);
+            window.history.replaceState(null, '', `${location.pathname}?${queryParams.toString()}`);
+            resetGame(); 
+        }} 
+        setImageSet={imageSet => {
+            queryParams.set('imageSet', imageSet);
+            window.history.replaceState(null, '', `${location.pathname}?${queryParams.toString()}`);
+            resetGame(); 
+        }}
+      />
       <GameOverModal isOpen={isGameOverModalOpen} closeModal={() => setIsGameOverModalOpen(false)} moveCount={moveCount} resetGame={resetGame} timer={timer}></GameOverModal>
     </>
     );

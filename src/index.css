@@ -35,10 +35,9 @@ body, html {
   width: 100%;
 }
 
-.header {
+.header-left, .header-center {
   font-family: 'Love Ya Like A Sister', cursive;
   background: transparent;
-  text-align: center;
   padding: 10px 20px;
   font-size: 5em;
   background-clip: text;
@@ -51,6 +50,14 @@ body, html {
   word-spacing: normal; /* Reset word spacing */
   line-height: normal; /* Reset line height */
   font-weight: normal; /* Reset font weight */
+}
+
+.header-left {
+  text-align: center;
+}
+
+.header-center {
+  text-align: center;
 }
 
 .game-container {
