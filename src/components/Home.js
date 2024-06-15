@@ -2,33 +2,50 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Home() {
-    const [numPairs, setNumPairs] = useState(8);
+    const [gridSize, setGridSize] = useState('4x4')
     const [imageSet, setImageSet] = useState('animals');
     const navigate = useNavigate();
 
     const handleStartGame = () => {
-        navigate(`/game?numPairs=${numPairs}&imageSet=${imageSet}`);
+        navigate(`/game?gridSize=${gridSize}&imageSet=${imageSet}`);
     }
 
     return (
-        <div className="home">
-          {/* <h1>Memory Game</h1> */}
-          <div>
-            <label htmlFor="numPairs">Number of Pairs:</label>
-            <select id="numPairs" onChange={(e) => setNumPairs(parseInt(e.target.value))} defaultValue={8}>
-                {[...Array(8).keys()].map(n => (
-                    <option key={n + 1} value={n + 1}>{n+1} Pairs</option>
-                ))}
-            </select>
-          </div>
-          <div>
-            <label htmlFor="imageSet">Image Set:</label>
-            <select id="imageSet" onChange={(e) => setImageSet(e.target.value)} defaultValue="animals">
-                <option value="animals">Animals</option>
-                <option value="totoro">My Neighbour Totoro</option>
-            </select>
-          </div>
-          <button className="start" onClick={handleStartGame}>Start</button>
+        <div className="home-content">
+            <div className="options">
+                <div className="options-subheader">Choose your cards</div>
+                <div className="button-group">
+                    <button 
+                        className={`card-option-button ${imageSet === 'animals' ? 'active' : ''}`} 
+                        aria-label="Animals card set"
+                        onClick={() => setImageSet('animals')}
+                    >
+                        <img src="/images/animal_card_set/raccoon.png" alt="card" style={{ width: '70%', height: '70%' }} />
+                    </button>
+                </div>
+                <div className="options-subheader">Choose a grid size</div>
+                <div className="button-group">
+                    <button 
+                        className={`grid-option-button ${gridSize === '3x4' ? 'active' : ''}`} 
+                        onClick={() => setGridSize('3x4')}
+                    >
+                        3 x 4
+                    </button>
+                    <button 
+                        className={`grid-option-button ${gridSize === '4x4' ? 'active' : ''}`} 
+                        onClick={() => setGridSize('4x4')}
+                    >
+                        4 x 4
+                    </button>
+                    <button 
+                        className={`grid-option-button ${gridSize === '4x6' ? 'active' : ''}`} 
+                        onClick={() => setGridSize('4x6')}
+                    >
+                        4 x 6
+                    </button>
+                </div>
+                <button className="play" onClick={handleStartGame}>Play</button>
+            </div>
         </div>
     );
 }
