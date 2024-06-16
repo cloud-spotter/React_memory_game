@@ -16,7 +16,7 @@ function App() {
         {isHome && (
           <div className="home-cards">
             <button className="home-card-facedown">Match all the pairs!<br></br><br></br>How many moves will it take you?</button>
-            <button className="home-card-faceup"><img src="/images/animal_card_set/fox.png" alt="card" style={{ width: '85%', height: '70%' }} /></button>
+            <button className="home-card-faceup"><img src="/images/animal_card_set/fox.png" alt="card" style={{ width: '90%', height: '70%' }} /></button>
           </div>
         )}
       </div>
