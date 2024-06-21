@@ -82,9 +82,10 @@ function GameBoard() {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const gridSize = queryParams.get('gridSize') || '4x4';
+    console.log("gridSize received from Home:", gridSize) // DEBUGGING
     const numPairs = gridSizes[gridSize]; // Default to 8 pairs if not specified
     const imageSet = queryParams.get('imageSet') || 'animals'; // Default to 'animals' if not specified
-    
+
     const totalCards = numPairs * 2; // TODO: delete if not needed anymore
     const cardImages = createPairSequence(numPairs, imageSet); // Create and shuffle cards
     // Initialise cards state (with shuffled values)

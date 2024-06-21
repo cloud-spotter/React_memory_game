@@ -38,10 +38,10 @@ function Home() {
                         4 x 4
                     </button>
                     <button 
-                        className={`grid-option-button ${gridSize === '4x6' ? 'active' : ''}`} 
-                        onClick={() => setGridSize('4x6')}
+                        className={`grid-option-button ${gridSize === '6x4' ? 'active' : ''}`} 
+                        onClick={() => setGridSize('6x4')}
                     >
-                        4 x 6
+                        6 x 4
                     </button>
                 </div>
                 <button className="play" onClick={handleStartGame}>Play</button>
