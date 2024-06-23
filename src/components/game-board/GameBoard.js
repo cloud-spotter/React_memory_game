@@ -83,6 +83,7 @@ function GameBoard() {
     const queryParams = new URLSearchParams(location.search);
     const gridSize = queryParams.get('gridSize') || '4x4';
     console.log("gridSize received from Home:", gridSize) // DEBUGGING
+    const [columns, rows] = gridSize.split('x').map(Number) // Split the string & convert each element to a number by passing map() the inbuilt function Number() as a callback (i.e. without parenthesis)
     const numPairs = gridSizes[gridSize]; // Default to 8 pairs if not specified
     const imageSet = queryParams.get('imageSet') || 'animals'; // Default to 'animals' if not specified
 
@@ -199,7 +200,7 @@ function GameBoard() {
     return (
     <>
       <div className='game-board' data-testid="game-board">
-        <Grid cards={cards} handleCardClick={handleCardClick} />
+        <Grid columns={columns} rows={rows} cards={cards} handleCardClick={handleCardClick} />
       </div>
       <GameControls 
         resetGame={resetGame}
