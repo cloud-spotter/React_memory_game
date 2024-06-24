@@ -20,7 +20,14 @@ function Home() {
                         aria-label="Animals card set"
                         onClick={() => setImageSet('animals')}
                     >
-                        <img src="/images/animal_card_set/raccoon.png" alt="card" style={{ width: '70%', height: '70%' }} />
+                        <img src="/images/animal_card_set/raccoon.png" alt="card" style={{ width: '70%', height: '65%' }} />
+                    </button>
+                    <button 
+                        className={`card-option-button ${imageSet === 'totoro' ? 'active' : ''}`} 
+                        aria-label="Totoro card set"
+                        onClick={() => setImageSet('totoro')}
+                    >
+                        <img src="/images/totoro_card_set/totoro-sitting.png" alt="card" style={{ width: '60%', height: '82%' }} />
                     </button>
                 </div>
                 <div className="options-subheader">Choose a grid size</div>

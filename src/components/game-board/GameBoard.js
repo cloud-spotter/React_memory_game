@@ -62,8 +62,19 @@ const createPairSequence = (numPairs, imageSet) => {
             '/images/animal_card_set/seal.png'
         ],
         totoro: [
-            // TODO: add images to card set
-        ]
+            "images/totoro_card_set/totoro-sitting.png",
+            "images/totoro_card_set/soot-sprites-stars.png",
+            "images/totoro_card_set/chu.png",
+            "images/totoro_card_set/chibi-leaf.png",
+            "images/totoro_card_set/chu-chibi.png",
+            "images/totoro_card_set/totoro-umbrella.png",
+            "images/totoro_card_set/catbus.png",
+            "images/totoro_card_set/acorns.png",
+            "images/totoro_card_set/soot-sprite-group.png",
+            "images/totoro_card_set/corn-on-the-cob.png",
+            "images/totoro_card_set/chibi-solo.png",
+            "images/totoro_card_set/seedling.png"
+            ]
     };
     const selectedImages = imageSets[imageSet].slice(0, numPairs);
     // Create a paired sequence of images

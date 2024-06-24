@@ -84,7 +84,7 @@ body, html {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  /* grid-template-columns: repeat(4, 1fr); */
   grid-gap: 11px;
   justify-items: center; /* Center horizontally */
   align-items: center; /* Center vertically */
@@ -287,6 +287,7 @@ body, html {
   border: 1px solid #145E69; 
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  margin: 5px;
 }
 
 .grid-option-button {
