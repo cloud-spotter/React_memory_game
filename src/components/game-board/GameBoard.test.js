@@ -1,6 +1,6 @@
 // tests/integration/GameBoard.test.js
 import React from 'react';
-import { render, screen, fireEvent, cleanup, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, cleanup } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import GameBoard from './GameBoard';
 import Modal from 'react-modal';
@@ -20,13 +20,6 @@ describe('GameBoard', () => {
         expect(grid).toBeInTheDocument();
     });
 
-    // TEST REMOVED (Start button removed from design - hindered user experience)
-    // test('renders start button', () => {
-    //     render(<GameBoard />);
-    //     const startButton = screen.getByRole('button', { name: /start/i });
-    //     expect(startButton).toBeInTheDocument();
-    // });
-
     test('renders reset button', () => {
         render(<GameBoard />);
         const resetButton = screen.getByRole('button', { name: /reset/i });
@@ -41,7 +34,7 @@ describe('GameBoard', () => {
     });
 
     test('shuffles the cards randomly each render', () => {
-        const { container: firstContainer } = render(<GameBoard />);
+        render(<GameBoard />);
         const firstRenderCards = screen.getAllByRole('button', { name: "Card facedown" });
 
         firstRenderCards.forEach(card => {
@@ -56,7 +49,7 @@ describe('GameBoard', () => {
 
         cleanup();
 
-        const { container: secondContainer } = render(<GameBoard />);
+        render(<GameBoard />);
         const secondRenderCards = screen.getAllByRole('button', { name: "Card facedown" });
 
         secondRenderCards.forEach(card => {
