@@ -76,7 +76,19 @@ const createPairSequence = (numPairs, imageSet) => {
             "images/totoro_card_set/seedling.png"
             ]
     };
-    const selectedImages = imageSets[imageSet].slice(0, numPairs);
+    // const selectedImages = imageSets[imageSet].slice(0, numPairs);
+    // // Create a paired sequence of images
+    // const sequence = [...selectedImages, ...selectedImages];
+    const allImages = imageSets[imageSet];
+    let selectedImages = [];
+
+    while (selectedImages.length < numPairs) {
+        const randomIndex = Math.floor(Math.random() * allImages.length);
+        const image = allImages[randomIndex];
+        if (!selectedImages.includes(image)) {
+            selectedImages.push(image);
+        }
+    }
     // Create a paired sequence of images
     const sequence = [...selectedImages, ...selectedImages];
     return shuffleArray(sequence); 
