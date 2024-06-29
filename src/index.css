@@ -29,7 +29,7 @@ body, html {
   left: -20%; /* Slightly shift to the left to achieve perfect centering */
   width: 100%;
   max-width: 1200px; /* Max-width, for alignment */
-  margin-left: 350px;
+  margin-left: 370px;
 }
 
 .logo-container { /* Container for the header and home cards */
@@ -37,49 +37,66 @@ body, html {
   flex-direction: column;
   align-items: center;
   width: 50%;
-  margin-right: 100px; 
+  /* margin-right: 100px;  */
 }
 
-.header-container {
+.header-container-home, .header-container-game {
   display: flex;
   justify-content: center;
   width: 100%;
 }
 
-.header {
-  font-family: 'Love Ya Like A Sister', cursive;
-  background: transparent;
-  text-align: center;
-  padding: 10px 20px;
-  font-size: 5em;
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  background-image: linear-gradient(to bottom, #FFE794 0%, #FFEFFF 100%);
-  margin-top: 25px; /* Move the header up */
-  /* TODO: check margin-right still needed (compare home/game page) */
-  margin-right: 60px; /* Add space between the header and the game board */
-  letter-spacing: normal; /* Reset letter spacing */
-  word-spacing: normal; /* Reset word spacing */
-  line-height: normal; /* Reset line height */
-  font-weight: normal; /* Reset font weight */
+/* Home page header */
+.header-container-home {
+  margin-right: 120px; 
+  margin-bottom: 20px;
+  }
+/* Game page header */
+.header-container-game {
+  /* margin-top: 40px; */
+  }
+    
+.header-home, .header-game {
+font-family: 'Love Ya Like A Sister', cursive;
+background: transparent;
+text-align: center;
+padding: 10px 20px;
+font-size: 5em;
+background-clip: text;
+-webkit-background-clip: text;
+color: transparent;
+background-image: linear-gradient(to bottom, #FFE794 0%, #FFEFFF 100%);
+margin-top: 25px; /* Move the header up */
+/* TODO: check margin-right still needed (compare home/game page) */
+margin-right: 60px; /* Add space between the header and the game board */
+letter-spacing: normal; /* Reset letter spacing */
+word-spacing: normal; /* Reset word spacing */
+line-height: normal; /* Reset line height */
+font-weight: normal; /* Reset font weight */
 }
 
+.header-home {
+margin-left: 50px;
+}
+
+.header-game {
+
+}
 
 .game-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 20px;
 }
 
 .game-board {
-  background-color: #FFDC62; /* Darker yellow outline */
-  padding: 10px;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px #666;
-  width: fit-content;
-  margin-top: 90px; /* Move the header up */
+background-color: #FFDC62; /* Darker yellow outline */
+padding: 10px;
+border-radius: 10px;
+box-shadow: 0px 0px 10px #666;
+width: fit-content;
+margin-top: 90px; /* Move the header up */
 }
 
 .grid {
@@ -237,6 +254,7 @@ body, html {
   flex-direction: row;
   gap: 7px; /* Space between cards */
   align-items: center;
+  margin-right: 120px; /* Push home-cards away from the options cards (also applied to header-container-home) */
   margin-bottom: 20px;
 }
 
