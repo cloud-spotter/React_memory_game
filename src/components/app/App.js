@@ -12,7 +12,7 @@ function App() {
   const isHome = location.pathname === '/';
   
   return (
-    <div className="memory-game">
+    <div className={isHome ? "memory-game-options" : "memory-game-board"}>
       <div className="logo-container">
         {isHome ? <HeaderHome /> : <HeaderGame />}  {/* Conditionally render headers */}
         {isHome && (

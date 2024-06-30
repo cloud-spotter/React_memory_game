@@ -18,7 +18,7 @@ body, html {
 }
 
 /* Memory Game styles */
-.memory-game {
+.memory-game-options {
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -32,12 +32,27 @@ body, html {
   margin-left: 370px;
 }
 
+.memory-game-board {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Ligconsolata', monospace; /* Font needs to be loaded to use this */
+  gap: 20px; /* Space between header and game board */
+  padding: 20px;
+  position: relative; /* Add position relative to allow for shifting */
+  width: 100%;
+  max-width: 1200px; /* Max-width, for alignment */
+  /* margin: 0 auto; */
+}
+
 .logo-container { /* Container for the header and home cards */
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 50%;
+  /* width: 50%; */
   /* margin-right: 100px;  */
+  flex: 1;
 }
 
 .header-container-home, .header-container-game {
@@ -53,7 +68,8 @@ body, html {
   }
 /* Game page header */
 .header-container-game {
-  /* margin-top: 40px; */
+  margin-bottom: 500px;
+  align-items: left;
   }
     
 .header-home, .header-game {
@@ -80,7 +96,7 @@ margin-left: 50px;
 }
 
 .header-game {
-
+/* TODO: delete if not used */
 }
 
 .game-container {
@@ -88,6 +104,7 @@ display: flex;
 flex-direction: column;
 align-items: center;
 gap: 20px;
+/* margin: 0 auto; */
 }
 
 .game-board {
@@ -96,7 +113,8 @@ padding: 10px;
 border-radius: 10px;
 box-shadow: 0px 0px 10px #666;
 width: fit-content;
-margin-top: 90px; /* Move the header up */
+/* margin: 0 auto; */
+margin-top: 20px; /* Move the header up */
 }
 
 .grid {
