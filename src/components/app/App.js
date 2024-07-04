@@ -1,18 +1,20 @@
 import React from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Home from '../Home';
-import Header from '../header/Header';
+// import Header from '../header/Header';
 import GameBoard from '../game-board/GameBoard';
 import Footer from '../footer/Footer';
+import HeaderGame from '../header/HeaderGame';
+import HeaderHome from '../header/HeaderHome';
 
 function App() {
   const location  = useLocation();
   const isHome = location.pathname === '/';
   
   return (
-    <div className="memory-game">
+    <div className={isHome ? "memory-game-options" : "memory-game-board"}>
       <div className="logo-container">
-        <Header />
+        {isHome ? <HeaderHome /> : <HeaderGame />}  {/* Conditionally render headers */}
         {isHome && (
           <div className="home-cards">
             <button className="home-card-facedown">Match all the pairs!<br></br><br></br>How many moves will it take you?</button>

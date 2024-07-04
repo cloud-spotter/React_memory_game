@@ -1,52 +1,55 @@
-/* TODO: delete this block (not using code snippets) */
-/* code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-} */
-
 /* General styles and resets */
 body, html {
   margin: 0;
   padding: 0;
-  font-family: 'Arial', sans-serif; /* Fallback if custom fonts are not available */
+  font-family: 'Arial', sans-serif;
   background-color: #259FA7;
   height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
 }
 
 /* Memory Game styles */
-.memory-game {
+.memory-game-options {
   display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  font-family: 'Ligconsolata', monospace; /* Font needs to be loaded to use this */
-  gap: 20px; /* Space between header and game board */
-  padding: 20px;
-  position: relative; /* Add position relative to allow for shifting */
-  left: -20%; /* Slightly shift to the left to achieve perfect centering */
   width: 100%;
-  max-width: 1200px; /* Max-width, for alignment */
-  margin-left: 350px;
+  max-width: 1200px;
+  height: 100vh;
+  margin: 0 auto;
 }
 
-.logo-container { /* Container for the header and home cards */
+.memory-game-board {
+  display: flex;
+  width: 100%;
+  max-width: 1200px;
+  height: 100vh;
+  margin: 0 auto;
+}
+
+.logo-container { /* Container for the header */
+  flex: 0 0 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 50%;
-  margin-right: 100px; 
+  padding: 20px;
 }
 
-.header-container {
+.header-container-home, .header-container-game {
   display: flex;
   justify-content: center;
   width: 100%;
 }
 
-.header {
+/* Home page header */
+.header-container-home {
+  margin-right: 120px; 
+  margin-bottom: 20px;
+  }
+/* Game page header */
+.header-container-game {
+  margin-bottom: 500px;
+  align-items: left;
+  }
+    
+.header-home, .header-game {
   font-family: 'Love Ya Like A Sister', cursive;
   background: transparent;
   text-align: center;
@@ -58,36 +61,44 @@ body, html {
   background-image: linear-gradient(to bottom, #FFE794 0%, #FFEFFF 100%);
   margin-top: 25px; /* Move the header up */
   /* TODO: check margin-right still needed (compare home/game page) */
-  margin-right: 60px; /* Add space between the header and the game board */
   letter-spacing: normal; /* Reset letter spacing */
   word-spacing: normal; /* Reset word spacing */
   line-height: normal; /* Reset line height */
   font-weight: normal; /* Reset font weight */
 }
 
+.header-home {
+  /* I removed the margin TODO: delete this block if happy with style */
+}
+
+.header-game {
+  font-family: 'Love Ya Like A Sister', cursive;
+  font-size: 5em;
+  text-align: center;
+  margin-bottom: 20px;
+}
 
 .game-container {
+  flex: 1;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  gap: 20px;
+  padding-top: 40px;
+  padding-right: 380px;
 }
 
 .game-board {
-  background-color: #FFDC62; /* Darker yellow outline */
+  background-color: #FFDC62;
   padding: 10px;
   border-radius: 10px;
   box-shadow: 0px 0px 10px #666;
-  width: fit-content;
-  margin-top: 90px; /* Move the header up */
+  margin-bottom: 20px;
 }
 
 .grid {
   display: grid;
-  /* grid-template-columns: repeat(4, 1fr); */
-  grid-gap: 11px;
-  justify-items: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
+  gap: 11px;
 }
 
 .card-facedown, .card-faceup {
@@ -133,7 +144,6 @@ body, html {
   padding: 2px;
   gap: 60px; /* Spacing between buttons */
   margin-top: 20px; /* Spacing between game board and buttons */
-  margin-bottom: 30px; /* Spacing between game board and buttons */
 }
 
 .button.reset, .button.play-again {
@@ -226,10 +236,10 @@ body, html {
 }
 
 .home-content {
+  flex: 1;
   display: flex;
-  justify-content: space-between;
-  width: 100%;
-  max-width: 1200px;
+  justify-content: center;
+  align-items: center;
 }
 
 .home-cards {
@@ -237,6 +247,7 @@ body, html {
   flex-direction: row;
   gap: 7px; /* Space between cards */
   align-items: center;
+  margin-right: 120px; /* Push home-cards away from the options cards (also applied to header-container-home) */
   margin-bottom: 20px;
 }
 
@@ -272,23 +283,27 @@ body, html {
   flex-direction: column;
   align-items: center;
   gap: 20px;
-  width: 50%;
-  flex-grow: 1; /* Use remaining space */
-  margin-top: 50px;
 }
 
 .options-subheader {
   font-family: 'Love Ya Like A Sister', cursive;
-  background: transparent;
-  padding: 10px 20px;
   font-size: 1.5em;
   color: #FFFFFF;
-  margin-top: 30px;
+  margin-top: 15px;
 }
 
 .button-group {
   display: flex;
   gap: 14px;
+  padding: 10px;
+  gap: 20px;
+}
+
+.card-option-button, .grid-option-button {
+  cursor: pointer;
+  border: 1px solid #145E69;
+  border-radius: 10px;
+  background-color: #8EFFE4;
 }
 
 .card-option-button {
@@ -297,32 +312,16 @@ body, html {
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
-  background-color: #8EFFE4;
-  border: 1px solid #145E69; 
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  margin: 5px;
 }
 
 .grid-option-button {
-  background-color: #8EFFE4;
-  border: none;
-  border-radius: 5px;
   padding: 10px 20px;
-  cursor: pointer;
   font-size: 1.2em;
-  margin: 5px;
 }
 
-.card-option-button.active {
-  background-color: #FFFACD; /* Light yellow background for active state */
-  border: 2px solid #FFEA61; 
-}
-
-.grid-option-button.active {
-  background-color: #FFFACD; /* Light yellow background for active state */
-  border: 2px solid #FFEA61; 
+.card-option-button.active, .grid-option-button.active {
+  background-color: #FFFACD;
+  border: 2px solid #FFEA61;
 }
 
 .play {
@@ -336,20 +335,21 @@ body, html {
 }
 
 /* Responsive adjustments here */
-@media (max-width: 768px) {
-  .game-board {
-    grid-template-columns: repeat(3, 1fr); /* 3 columns for smaller screens */
+@media (max-width: 1024px) {
+  .memory-game-board, .memory-game-options {
+    flex-direction: column;
   }
-}
-/* TODO: check this section - 3x @media headings and there are TWO 
-.home-content sections (different!). Clean up if needed. */
-@media (min-width: 768px) {  
-  .home-content {
-    flex-direction: row;
+  
+  .logo-container {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: none;
   }
-}
+  
+  .game-container, .home-content {
+    width: 100%;
+  }
 
-@media (max-width: 767px) {
   .home-header {
     font-size: 3em;
   }
