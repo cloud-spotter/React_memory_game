@@ -24,12 +24,20 @@ body, html {
   margin: 0 auto;
 }
 
-.logo-container { /* Container for the header */
+.logo-container-home, .logo-container-game { /* Container for the header */
   flex: 0 0 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
+}
+
+.logo-container-home {
+  margin-left: 25px;
+}
+
+.logo-container-game {
+  margin-right: 25px;
 }
 
 .header-container-home, .header-container-game {
@@ -45,7 +53,7 @@ body, html {
   }
 /* Game page header */
 .header-container-game {
-  margin-bottom: 500px;
+  margin-bottom: 10px;
   align-items: left;
   }
     
@@ -67,15 +75,12 @@ body, html {
   font-weight: normal; /* Reset font weight */
 }
 
-.header-home {
-  /* I removed the margin TODO: delete this block if happy with style */
-}
-
 .header-game {
   font-family: 'Love Ya Like A Sister', cursive;
   font-size: 5em;
   text-align: center;
   margin-bottom: 20px;
+  margin-top: -3px; /* Negative margin to pull it up */
 }
 
 .game-container {
@@ -340,7 +345,7 @@ body, html {
     flex-direction: column;
   }
   
-  .logo-container {
+  .logo-container-home, .logo-container-game {
     flex: 0 0 auto;
     width: 100%;
     max-width: none;

@@ -13,7 +13,7 @@ function App() {
   
   return (
     <div className={isHome ? "memory-game-options" : "memory-game-board"}>
-      <div className="logo-container">
+      <div className={isHome ? "logo-container-home" : "logo-container-game"}>
         {isHome ? <HeaderHome /> : <HeaderGame />}  {/* Conditionally render headers */}
         {isHome && (
           <div className="home-cards">
