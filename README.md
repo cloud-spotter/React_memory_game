@@ -1,6 +1,10 @@
 # Memory Game React App
 
-This project is a React adaptation of a memory card game originally created as a Python CLI application. The game allows users to interact with a graphical interface, enhancing the overall user experience.
+This project is a React adaptation of a memory card game originally created as a Python CLI application.
+
+![Home page](public/images/home_page.png)
+
+![Game page](public/images/game_page.png)
 
 ## Development Process
 
