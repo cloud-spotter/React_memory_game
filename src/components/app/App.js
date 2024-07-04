@@ -26,7 +26,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/game" element={<div className="game-container"><GameBoard /></div>} />
       </Routes>
-      <Footer />
+      {isHome ? "" : <Footer />}
     </div>
   );
 }

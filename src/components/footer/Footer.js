@@ -1,6 +1,6 @@
 function Footer() {
     return (
-        <div className="footer" aria-label="Footer with image attribution">Images by Freepik from flaticon.com</div>
+        <div className="footer" aria-label="Footer with image attribution">Totoro images: imgbin.com || Animal images: flaticon.com (Freepik)</div>
     );
 }
 

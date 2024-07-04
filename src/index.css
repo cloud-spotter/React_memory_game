@@ -53,7 +53,7 @@ body, html {
   }
 /* Game page header */
 .header-container-game {
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
   align-items: left;
   }
     
@@ -355,6 +355,10 @@ body, html {
     width: 100%;
   }
 
+  .game-container {
+    padding-top: 5px;
+  }
+
   .home-header {
     font-size: 3em;
   }
@@ -377,5 +381,9 @@ body, html {
   .button-group {
     flex-wrap: wrap;
     justify-content: center;
+  }
+
+  .footer {
+    padding-top: 100px;
   }
 }
