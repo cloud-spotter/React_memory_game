@@ -17,7 +17,10 @@ function GameOverModal({ isOpen, closeModal, moveCount, resetGame, timer }) {
               <div>You found all the pairs in {moveCount} moves.</div>
               <div>Time: {timer} seconds</div>
               <br></br>
-              <button className='button play-again' aria-label='Play Again' onClick={() => {resetGame(); closeModal(); }} >Play Again</button>
+              <div className="button-group-modal">
+                <button className='button play-again' aria-label='Play Again' onClick={() => {resetGame(); closeModal(); }} >Play Again</button>
+                <button className='button home' aria-label='Home' onClick={() => {resetGame(); closeModal(); }} >Home</button>
+              </div>
             </Modal>
           </div>
         )}

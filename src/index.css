@@ -151,7 +151,7 @@ body, html {
   margin-top: 20px; /* Spacing between game board and buttons */
 }
 
-.button.reset, .button.play-again {
+.button.reset, .button.play-again, .button.home {
   height: 55px;
   width: 150px;
   padding: 10px 20px;
@@ -167,12 +167,22 @@ body, html {
   background-color: #FF9EA4; 
 }
 
-.button.play-again {
+.button.play-again, .button.home {
+  flex: 1;
   background-color: #8EFFE4;
-  padding: 10px 0px;
-  margin: 25px;
+  max-width: 150px; /* Limit maximum width of buttons */
+  margin: 0; /* Remove default margins */
+  padding: 10px 5px; /* Adjust padding to fit text */
   font-size: 1em;
-  font-family: 'Ligconsolata', monospace;
+  height: 50px; /* Allow height to adjust to content */
+}
+
+.button-group-modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px; /* Adjust this value to control space between buttons */
+  margin-top: 20px; /* Add some space above the button group */
 }
 
 .game-over-modal {
@@ -181,7 +191,7 @@ body, html {
   left: 52%;
   transform: translate(-50%, -50%);
   height: 250px;
-  width: 360px;
+  width: 400px;
   margin-top: 0px;
   text-align: center;
   padding: 20px 20px;
@@ -303,6 +313,7 @@ body, html {
   padding: 10px;
   gap: 20px;
 }
+
 
 .card-option-button, .grid-option-button {
   cursor: pointer;
