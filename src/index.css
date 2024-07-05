@@ -151,27 +151,27 @@ body, html {
   margin-top: 20px; /* Spacing between game board and buttons */
 }
 
-.button.reset, .button.play-again, .button.home {
+/* Common styles for all buttons */
+.button {
+  border: none;
+  cursor: pointer;
+  border-radius: 7px;
+  font-family: 'Ligconsolata', monospace;
+  }
+  
+.button.reset {
+  background-color: #FF9EA4; 
   height: 55px;
   width: 150px;
   padding: 10px 20px;
-  border: none;
-  cursor: pointer;
   margin: 10px;
-  border-radius: 7px;
-  font-family: 'Ligconsolata', monospace;
   font-size: 1.3em
-}
-
-.button.reset {
-  background-color: #FF9EA4; 
 }
 
 .button.play-again, .button.home {
   flex: 1;
   background-color: #8EFFE4;
   max-width: 150px; /* Limit maximum width of buttons */
-  margin: 0; /* Remove default margins */
   padding: 10px 5px; /* Adjust padding to fit text */
   font-size: 1em;
   height: 50px; /* Allow height to adjust to content */
