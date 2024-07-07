@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Grid from '../grid/Grid';
 import GameControls from '../game-controls/GameControls';
 import GameOverModal from '../game-over-modal/GameOverModal';
@@ -76,9 +76,8 @@ const createPairSequence = (numPairs, imageSet) => {
             "images/totoro_card_set/seedling.png"
             ]
     };
-    // const selectedImages = imageSets[imageSet].slice(0, numPairs);
+
     // // Create a paired sequence of images
-    // const sequence = [...selectedImages, ...selectedImages];
     const allImages = imageSets[imageSet];
     let selectedImages = [];
 
@@ -103,6 +102,7 @@ const gridSizes = {
 
 function GameBoard() {
     const location = useLocation();
+    const navigate = useNavigate(); 
     const queryParams = new URLSearchParams(location.search);
     const gridSize = queryParams.get('gridSize') || '4x4';
     console.log("gridSize received from Home:", gridSize) // DEBUGGING
@@ -220,6 +220,10 @@ function GameBoard() {
         setIsGameOverModalOpen(false);
     };
 
+    const handleReturnHome = () => {
+        navigate('/');
+    }
+
     return (
     <>
       <div className='game-board' data-testid="game-board">
@@ -238,7 +242,14 @@ function GameBoard() {
             resetGame(); 
         }}
       />
-      <GameOverModal isOpen={isGameOverModalOpen} closeModal={() => setIsGameOverModalOpen(false)} moveCount={moveCount} resetGame={resetGame} timer={timer}></GameOverModal>
+      <GameOverModal 
+        isOpen={isGameOverModalOpen} 
+        closeModal={() => setIsGameOverModalOpen(false)}
+        moveCount={moveCount}
+        resetGame={resetGame}
+        timer={timer}
+        onReturnHome={handleReturnHome} // Pass the function as a reference only at this point (not calling it with parenthesis, just making it available to the child component here)
+      />
     </>
     );
 }
