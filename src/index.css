@@ -311,7 +311,6 @@ body, html {
   gap: 20px;
 }
 
-
 .card-option-button, .grid-option-button {
   cursor: pointer;
   border: 1px solid #145E69;
@@ -393,5 +392,75 @@ body, html {
 
   .footer {
     padding-top: 100px;
+  }
+}
+
+/* Media Query for Mobile Devices */
+@media (max-width: 767px) {
+  .logo-container-home {
+    max-width: 80%; /* Restrict max width */
+  }
+
+  .header-container-home {
+    margin-right: 5px; 
+    margin-top: 10px;
+    margin-bottom: 5px;
+    }
+      
+  .header-home, .header-game {
+    padding: 10px 20px;
+    font-size: 5em;
+    margin-top: 25px; /* Move the header up */
+  }
+
+  .home-cards {
+    width: 90%; 
+    padding-left: 15px;
+    padding-right: 15px;
+    margin: 0 auto; /* Center the cards container */
+    position: relative; 
+    height: 220px; /* Fixed height to contain cards */
+  }
+
+  .home-card-faceup, .home-card-facedown {
+    font-size: 1em; /* Slightly smaller font */
+    width: 125px; /* Reduced width */
+    height: 160px; /* Reduced height */
+    position: absolute; /* Position cards absolutely within .home-cards */
+    top: 15px; /* Top position */
+  }
+
+  .home-card-faceup {
+    right: calc(35% - 70px); /* Position slightly to the right */
+    transform: rotate(15deg); 
+    z-index: 1;
+  }
+  
+  .home-card-facedown {
+    left: calc(35% - 70px); /* Position slightly to the left */
+    transform: rotate(-15deg); 
+    z-index: 2;
+  }
+
+  .options, .logo-container {
+    margin-left: 5%; /* Slight left margin for better centering */
+  }
+
+  .play {
+    margin-top: 10px;
+    margin-bottom: 15px;
+  }
+
+  /* Font size adjustments */
+  body {
+    font-size: 14px;
+  }
+
+  h1 {
+    font-size: 1.8em;
+  }
+
+  h2 {
+    font-size: 1.5em;
   }
 }
