@@ -55,6 +55,12 @@ You may also see any lint errors in the console.
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
+### `npm run test:repeated`
+
+Executes the test suite multiple times (default 5) to catch intermittent issues.\
+This non-interactive mode runs all tests and exits, providing a more robust check of test reliability.\
+Ideal for use in CI/CD pipelines or before committing changes.
+
 ### `npm run build`
 
 Builds the app for production to the `build` folder.\
