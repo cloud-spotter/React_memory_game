@@ -31,7 +31,7 @@ The journey from concept to execution involves a series of carefully planned ste
 
 ### Test-Driven Development (TDD)
 
-- **Upcoming Stage**: Embarking on the TDD phase, with a set of preliminary tests guiding the development of a minimum viable product (MVP).
+- Utilised TDD, with a set of preliminary tests guiding the development of a minimum viable product (MVP).
 
 
 # Getting Started with Create React App
