@@ -45,7 +45,6 @@ body, html {
   justify-content: center;
   width: 100%;
 }
-
 /* Home page header */
 .header-container-home {
   margin-right: 120px; 
@@ -53,7 +52,6 @@ body, html {
   }
 /* Game page header */
 .header-container-game {
-  /* margin-bottom: 10px; */
   align-items: left;
   }
     
@@ -112,7 +110,7 @@ body, html {
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  border: 1px solid #145E69; /* Border for better visibility */
+  border: 1px solid #145E69; 
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
@@ -123,7 +121,7 @@ body, html {
 }
 
 .card-faceup {
-  background-color: #FFFFFF; /* White when face up */
+  background-color: #FFFFFF; /* White background when face up */
   font-size: 2.3em; /* Show text when face up */
 }
 
@@ -170,18 +168,18 @@ body, html {
 .button.play-again, .button.home {
   flex: 1;
   background-color: #8EFFE4;
-  max-width: 150px; /* Limit maximum width of buttons */
-  padding: 10px 5px; /* Adjust padding to fit text */
+  max-width: 150px;
+  padding: 10px 5px; 
   font-size: 1em;
-  height: 50px; /* Allow height to adjust to content */
+  height: 50px; 
 }
 
 .button-group-modal {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 25px; /* Adjust this value to control space between buttons */
-  margin-top: 20px; /* Add some space above the button group */
+  gap: 25px; /* Space between buttons */
+  margin-top: 20px; /* Space above the button group */
 }
 
 .game-over-modal {
@@ -197,7 +195,7 @@ body, html {
   font-family: 'Love Ya Like A Sister', cursive;
   font-size: 1.2em;
   background-color: white; /* Ensures the modal has a visible background */
-  border: 1px solid #ccc; /* Border to define edges */
+  border: 1px solid #ccc;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for better visibility */
   z-index: 1000; /* Ensure the modal appears above other content */
@@ -223,7 +221,7 @@ body, html {
   background: transparent;
   color: #8EFFE4;
   text-align: right;
-  padding: 5px 10px; /* Smaller padding for a more compact look */
+  padding: 5px 10px;
   font-size: 0.9em; 
   font-family: 'Love Ya Like A Sister', cursive; 
 }
@@ -349,7 +347,7 @@ body, html {
   margin-top: 50px;
 }
 
-/* Responsive adjustments here */
+/* Responsive adjustments */
 @media (max-width: 1024px) {
   .memory-game-board, .memory-game-options {
     flex-direction: column;
