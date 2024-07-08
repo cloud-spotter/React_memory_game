@@ -14,6 +14,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:repeated": "node scripts/run-tests-multiple-times.js",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
