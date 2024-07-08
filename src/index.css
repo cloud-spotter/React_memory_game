@@ -6,7 +6,7 @@ body, html {
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  -moz-osx-font-smoothing: grayscale; /* Smoothing entries for better font rendering across different browsers */
   background-color: #259FA7;
   height: 100%;
 }
