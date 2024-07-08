@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Content Security Policy (CSP)
+      This policy enhances security by controlling which resources the browser is allowed to load.
+      Key aspects:
+      - Restricts most resources to be loaded only from this website's own domain ('self')
+      - Allows inline styles and scripts (needed for React)
+      - Permits loading of Google Fonts (styles from googleapis.com, fonts from gstatic.com)
+      - Allows 'unsafe-eval' for React's development features and some third-party libraries
+      - Images can be loaded from 'self' and data URIs
+      Adjust this policy as needed if you add new external resources or face CSP-related issues.
+    -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline' 'unsafe-eval';">
+    
     <!-- link line: method for loading custom fonts from design (via Google Fonts)-->
     <link href="https://fonts.googleapis.com/css2?family=Ligconsolata:wght@400&family=Love+Ya+Like+A+Sister&display=swap" rel="stylesheet"> 
     <meta charset="utf-8" />
