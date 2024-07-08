@@ -1,7 +1,6 @@
 import React from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Home from '../Home';
-// import Header from '../header/Header';
 import GameBoard from '../game-board/GameBoard';
 import Footer from '../footer/Footer';
 import HeaderGame from '../header/HeaderGame';

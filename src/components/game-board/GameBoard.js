@@ -65,11 +65,11 @@ function GameBoard() {
 
     // Check if game is over
     useEffect(() => {
-        if (cards.every((card) => card.isMatched)) {
+        if (cards.every((card) => card.isMatched) && !isGameOverModalOpen) {
             stopTimer();
             setIsGameOverModalOpen(true);
         }
-    }, [cards]);
+    }, [cards, isGameOverModalOpen]);
 
     const handleCardClick = (index) => {
         if (!isGameActive) {
