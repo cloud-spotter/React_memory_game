@@ -4,6 +4,7 @@ import { render, screen, fireEvent, cleanup } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import GameBoard from './GameBoard';
 import Modal from 'react-modal';
+import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 
 // Avoids warning to set the app element for 'react-modal' (along with modal import above)
 // (ensures the modal library works properly & screen readers handle modal properly when displayed)
@@ -13,28 +14,40 @@ describe('GameBoard', () => {
     beforeEach(() => {
         cleanup();
     });
+
+    // Helper function to render the GameBoard component within a MemoryRouter context
+    // This is necessary because GameBoard uses React Router hooks (useLocation, useNavigate),
+    // which require a Router context to function properly in tests.
+    // The function allows specifying a custom route, defaulting to '/game?gridSize=4x4'
+    const renderWithRouter = (ui, { route = '/game?gridSize=4x4' } = {}) => {
+        return render(
+          <MemoryRouter initialEntries={[route]}>
+            {ui}
+          </MemoryRouter>
+        );
+      };
     
     test('renders the grid component', () => {
-        render(<GameBoard />);
+        renderWithRouter(<GameBoard />);
         const grid = screen.getByTestId('grid');
         expect(grid).toBeInTheDocument();
     });
 
     test('renders reset button', () => {
-        render(<GameBoard />);
+        renderWithRouter(<GameBoard />);
         const resetButton = screen.getByRole('button', { name: /reset/i });
         expect(resetButton).toBeInTheDocument();
     });
 
     test('flips a facedown-card when clicked', () => {
-        render(<GameBoard />);
+        renderWithRouter(<GameBoard />);
         const card = screen.getAllByRole('button', { name: "Card facedown" })[0];
         fireEvent.click(card);
         expect(card).toHaveClass('card-faceup');
     });
 
     test('shuffles the cards randomly each render', () => {
-        render(<GameBoard />);
+        renderWithRouter(<GameBoard />);
         const firstRenderCards = screen.getAllByRole('button', { name: "Card facedown" });
 
         firstRenderCards.forEach(card => {
@@ -49,7 +62,7 @@ describe('GameBoard', () => {
 
         cleanup();
 
-        render(<GameBoard />);
+        renderWithRouter(<GameBoard />);
         const secondRenderCards = screen.getAllByRole('button', { name: "Card facedown" });
 
         secondRenderCards.forEach(card => {
@@ -65,7 +78,7 @@ describe('GameBoard', () => {
     });
 
     test('registers cards as matched when two matching cards are flipped', async () => {
-        render(<GameBoard />);
+        renderWithRouter(<GameBoard />);
         const cards = screen.getAllByRole('button', { name: /card facedown/i });
         const firstCard = cards[0];
         // Since clicking the first card starts a game, we will click a card
@@ -85,7 +98,7 @@ describe('GameBoard', () => {
         });
 
     test('unflips cards when two non-matching cards are already flipped and a third is clicked', () => {
-        render(<GameBoard />);
+        renderWithRouter(<GameBoard />);
         const cards = screen.getAllByRole('button', { name: /card facedown/i });
         const firstCard = cards[0];
         fireEvent.click(firstCard); // Start game by clicking card (also reshuffles cards so do this before finding a matching card)
@@ -102,7 +115,7 @@ describe('GameBoard', () => {
     });
 
     test('keeps cards flipped when two matching cards are flipped', () => {
-        render(<GameBoard />);
+        renderWithRouter(<GameBoard />);
         const cards = screen.getAllByRole('button', { name: /card facedown/i });
         const firstCard = cards[0];
         fireEvent.click(firstCard); // Start game by clicking card (also reshuffles cards so do this before finding a matching card)
@@ -116,7 +129,7 @@ describe('GameBoard', () => {
 
     // Test suggested by Claude (AI) in response to a request for feedback on my tests
     test('increments move count when two cards are flipped', () => {
-        render(<GameBoard />);
+        renderWithRouter(<GameBoard />);
         const cards = screen.getAllByRole('button', { name: /card facedown/i });
         const totalPairs = cards.length / 2;
         const firstCard = cards[0];
@@ -141,7 +154,7 @@ describe('GameBoard', () => {
     });
 
     test('displays game over modal when all pairs are matched', () => {
-        render(<GameBoard />);
+        renderWithRouter(<GameBoard />);
         const cards = screen.getAllByRole('button', { name: /card facedown/i });
         const firstCard = cards[0];
         fireEvent.click(firstCard); // Start the game before doing anything else (also initialise game settings, including shuffling the cards)
