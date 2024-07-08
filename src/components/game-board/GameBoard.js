@@ -50,15 +50,12 @@ function GameBoard() {
     const navigate = useNavigate(); 
     const queryParams = new URLSearchParams(location.search);
     const gridSize = queryParams.get('gridSize') || '4x4';
-    console.log("gridSize received from Home:", gridSize) // DEBUGGING
-    const [columns, rows] = gridSize.split('x').map(Number) // Split the string & convert each element to a number by passing map() the inbuilt function Number() as a callback (i.e. without parenthesis)
-    const numPairs = gridSizes[gridSize]; // Default to 8 pairs if not specified
-    const imageSet = queryParams.get('imageSet') || 'animals'; // Default to 'animals' if not specified
+    const [columns, rows] = gridSize.split('x').map(Number)  // Split the string & convert each element to a number by passing map() the inbuilt function Number() as a callback (i.e. without parenthesis)
+    const numPairs = gridSizes[gridSize];  // Default to 8 pairs if not specified
+    const imageSet = queryParams.get('imageSet') || 'animals';  // Default to 'animals' if not specified
 
-    const totalCards = numPairs * 2; // TODO: delete if not needed anymore
-    const cardImages = createPairSequence(numPairs, imageSet); // Create and shuffle cards
-    // Initialise cards state (with shuffled values)
-    const [cards, setCards] = useState(cardImages.map(image => createCardData(image)));
+    const cardImages = createPairSequence(numPairs, imageSet);  // Create and shuffle cards
+    const [cards, setCards] = useState(cardImages.map(image => createCardData(image)));  // Initialise cards state (with shuffled values)
     const [flippedIndices, setFlippedIndices] = useState([]);  // Track indices of currently flipped cards across renders
     const [moveCount, setMoveCount] = useState(0)
     const [isGameOverModalOpen, setIsGameOverModalOpen] = useState(false);
@@ -165,6 +162,7 @@ function GameBoard() {
         setIsGameOverModalOpen(false);
     };
 
+    // Navigate to Home when home button is clicked (in GameOverModal)
     const handleReturnHome = () => {
         navigate('/');
     }
