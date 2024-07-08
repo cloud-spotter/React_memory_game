@@ -68,7 +68,6 @@ body, html {
   color: transparent;
   background-image: linear-gradient(to bottom, #FFE794 0%, #FFEFFF 100%);
   margin-top: 25px; /* Move the header up */
-  /* TODO: check margin-right still needed (compare home/game page) */
   letter-spacing: normal; /* Reset letter spacing */
   word-spacing: normal; /* Reset word spacing */
   line-height: normal; /* Reset line height */
