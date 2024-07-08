@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Grid from '../grid/Grid';
+import { imageSets } from '../../data/imageData';
 import GameControls from '../game-controls/GameControls';
 import GameOverModal from '../game-over-modal/GameOverModal';
 
@@ -22,63 +23,8 @@ const shuffleArray = (array) => {
 }
 
 const createPairSequence = (numPairs, imageSet) => {
-    const imageSets = {
-        animals: [
-            '/images/animal_card_set/beaver.png',
-            '/images/animal_card_set/capybara.png',
-            '/images/animal_card_set/frog.png',
-            '/images/animal_card_set/lemur.png',
-            '/images/animal_card_set/llama.png',
-            '/images/animal_card_set/puffin.png',
-            '/images/animal_card_set/raccoon.png',
-            '/images/animal_card_set/squirrel.png',
-            '/images/animal_card_set/bear.png',
-            '/images/animal_card_set/capybara.png',  
-            '/images/animal_card_set/frog.png',      
-            '/images/animal_card_set/penguin.png',   
-            '/images/animal_card_set/sloth.png',
-            '/images/animal_card_set/beaver.png',    
-            '/images/animal_card_set/chicken.png',  
-            '/images/animal_card_set/lemur.png',     
-            '/images/animal_card_set/pig.png',       
-            '/images/animal_card_set/squirrel.png',
-            '/images/animal_card_set/bee.png',      
-            '/images/animal_card_set/crab.png',      
-            '/images/animal_card_set/llama.png',     
-            '/images/animal_card_set/puffin.png',    
-            '/images/animal_card_set/turtle.png',
-            '/images/animal_card_set/blowfish.png',  
-            '/images/animal_card_set/cricket.png',   
-            '/images/animal_card_set/mouse.png',     
-            '/images/animal_card_set/raccoon.png',   
-            '/images/animal_card_set/whale.png',
-            '/images/animal_card_set/bullfinch.png', 
-            '/images/animal_card_set/dolphin.png',   
-            '/images/animal_card_set/owl.png',       
-            '/images/animal_card_set/rhino.png',
-            '/images/animal_card_set/butterfly.png', 
-            '/images/animal_card_set/fox.png',       
-            '/images/animal_card_set/parrot.png',    
-            '/images/animal_card_set/seal.png'
-        ],
-        totoro: [
-            "images/totoro_card_set/totoro-sitting.png",
-            "images/totoro_card_set/soot-sprites-stars.png",
-            "images/totoro_card_set/chu.png",
-            "images/totoro_card_set/chibi-leaf.png",
-            "images/totoro_card_set/chu-chibi.png",
-            "images/totoro_card_set/totoro-umbrella.png",
-            "images/totoro_card_set/catbus.png",
-            "images/totoro_card_set/acorns.png",
-            "images/totoro_card_set/soot-sprite-group.png",
-            "images/totoro_card_set/corn-on-the-cob.png",
-            "images/totoro_card_set/chibi-solo.png",
-            "images/totoro_card_set/seedling.png"
-            ]
-    };
-
     // // Create a paired sequence of images
-    const allImages = imageSets[imageSet];
+    const allImages = imageSets[imageSet];  // imageSets imported from imageData.js to reduce clutter in GameBoard 
     let selectedImages = [];
 
     while (selectedImages.length < numPairs) {
@@ -98,7 +44,6 @@ const gridSizes = {
     '4x4': 8, 
     '6x4': 12
 };
-
 
 function GameBoard() {
     const location = useLocation();
