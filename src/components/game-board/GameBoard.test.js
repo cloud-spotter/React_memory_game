@@ -4,7 +4,7 @@ import { render, screen, fireEvent, cleanup } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import GameBoard from './GameBoard';
 import Modal from 'react-modal';
-import { BrowserRouter, MemoryRouter } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 
 // Avoids warning to set the app element for 'react-modal' (along with modal import above)
 // (ensures the modal library works properly & screen readers handle modal properly when displayed)
