@@ -453,6 +453,124 @@ body, html {
     margin-top: 10px;
     margin-bottom: 15px;
   }
+  
+  /* Game page adaptations */
+  .memory-game-board {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding: 10px;
+  }
+  
+  .logo-container-game {
+    margin-right: 0;
+    padding: 10px;
+  }
+  
+  .header-container-game {
+    flex-shrink: 0;
+  }
+
+  .header-game {
+    font-size: 5em;
+    margin-top: 40px;
+    margin-bottom: -10px;
+    margin-right: 20px;
+  }
+
+  .game-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    max-width: 90vw;
+    margin: 20px;
+  }
+
+  .game-board {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    padding: 5px;
+  }
+    
+  .grid {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    gap: 5px;
+    /* Create a grid with a number of rows equal to the value of --grid-rows 
+    (or 4 if that variable isn't set), 
+    and make each row take up an equal fraction of the available space. */
+    grid-template-columns: repeat(var(--grid-columns, 4), 1fr);  /* 1fr = 1 fraction unit. It tells the grid to distribute available space equally among all rows. */
+    grid-template-rows: repeat(var(--grid-rows, 4), 1fr);
+  }
+
+  .card-facedown, .card-faceup {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8em;
+  }
+
+  .footer {
+    font-size: 0.7em;
+    padding: 5px 10px;
+  }
+
+  /* GameOverModal styles */
+  .game-over-modal {
+    position: absolute;
+    top: 30%;
+    left: 27%;
+    transform: translate(-50%, -48%);
+    width: 80%;
+    max-width: 300px;
+    height: auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1001; /* Ensure it's above the overlay */
+  }
+
+  .game-over-modal h2 {
+    margin-bottom: 10px;
+  }
+
+  .game-over-modal div {
+    font-size: 1em;
+    margin-bottom: 5px;
+  }
+
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; /* High z-index to appear above other elements */
+  }
+
+  .button-group-modal {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+    width: 100%;
+  }
+
+  .button-group-modal .button {
+    width: 100%;
+    padding: 10px;
+    font-size: 0.9em;
+  }
 
   /* Font size adjustments */
   body {
