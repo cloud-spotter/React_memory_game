@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Grid from '../grid/Grid';
 import { imageSets } from '../../data/imageData';
@@ -68,13 +68,21 @@ function GameBoard() {
     const [timerId, setTimerId] = useState(null);
     const [isGameActive, setIsGameActive] = useState(false);
 
+    // Define stopTimer using useCallback & moved to the top here, to fix an ESLint warning about stopTimer not appearing in useEffect's dependency array)
+    const stopTimer = useCallback(() => { // useCallback hook memoizes the function and only recreates it if timerId changes
+        if (timerId) {
+            clearInterval(timerId);
+            setTimerId(null);
+        }
+    }, [timerId]);
+
     // Check if game is over
     useEffect(() => {
         if (cards.every((card) => card.isMatched) && !isGameOverModalOpen) {
             stopTimer();
             setIsGameOverModalOpen(true);
         }
-    }, [cards, isGameOverModalOpen]);
+    }, [cards, isGameOverModalOpen, stopTimer]);
 
     const handleCardClick = (index) => {
         if (!isGameActive) {
@@ -129,12 +137,13 @@ function GameBoard() {
         setTimerId(id); // Store the interval ID in state. This allows referencing/clearing that interval later & access to it throughout the component's lifecycle (e.g. allows control over it across renders & other state updates)
     };
 
-    const stopTimer = () => {
-        if (timerId) { // Check whether there's a timer running
-            clearInterval(timerId); // Stop the timer using clearInterval with the stored interval ID
-            setTimerId(null); // Reset the timerId state to null (i.e. no active timer)
-        }
-    };
+    // DEBUGGING
+    // const stopTimer = () => {
+    //     if (timerId) { // Check whether there's a timer running
+    //         clearInterval(timerId); // Stop the timer using clearInterval with the stored interval ID
+    //         setTimerId(null); // Reset the timerId state to null (i.e. no active timer)
+    //     }
+    // };
 
     const resetTimer = () => {
         stopTimer();
