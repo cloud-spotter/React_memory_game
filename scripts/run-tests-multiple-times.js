@@ -3,7 +3,7 @@
 
 const { execSync } = require('child_process');
 
-const numberOfRuns = 5; // Modify as needed
+const numberOfRuns = 10; // Modify as needed
 
 for (let i = 0; i < numberOfRuns; i++) {
   console.log(`\nTest run ${i + 1} of ${numberOfRuns}`);
