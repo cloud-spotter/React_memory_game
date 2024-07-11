@@ -26,7 +26,6 @@ describe('Grid', () => {
       ); // Need to pass Grid the required props now, since lifting card isFlipped state management up to GameBoard (parent component)
       
       const cards = screen.getAllByRole('button', { name: /Card \d+ facedown/i});
-      console.log(cards)
       expect(cards).toHaveLength(16);
     });
 });

@@ -128,6 +128,7 @@ describe('GameBoard', () => {
     });
 
     // Test suggested by Claude (AI) in response to a request for feedback on my tests
+    // This test fails intermittently
     test('increments move count when two cards are flipped', () => {
         renderWithRouter(<GameBoard />);
         const cards = screen.getAllByRole('button', { name: /Card \d+ facedown/i });
@@ -153,7 +154,8 @@ describe('GameBoard', () => {
         expect(moveCountDisplay).toHaveTextContent(`You found all the pairs in ${expectedMoves} moves.`);
     });
 
-    test('displays game over modal when all pairs are matched', () => {
+    // This test fails intermittently
+    test('displays game over modal when all pairs are matched', async () => {
         renderWithRouter(<GameBoard />);
         const cards = screen.getAllByRole('button', { name: /Card \d+ facedown/i });
         const firstCard = cards[0];
