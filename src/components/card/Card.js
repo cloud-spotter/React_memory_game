@@ -15,7 +15,7 @@ function Card({ card, handleCardClick }) {
   return (
       <button
         className={`${card.isFlipped ? "card-faceup" : "card-facedown"} ${card.isMatched ? "card-matched" : ""}`}
-        aria-label={getAriaLabel()} 
+        aria-label={getAriaLabel()} // Use dynamic attribute label since updating aria-labels to match card states
         onClick={handleCardClick}
         data-value={card.image}
       >
