@@ -56,10 +56,11 @@ describe('Card', () => {
     render(<Card card={mockCardFaceup} handleCardClick={mockHandleCardClick} />);
     // After flipping, the card should display its image
     const cardAfterClick = screen.getByRole('button', { name: /Flipped card: Image of beaver/i }); // Query the button element representing the card first
+    // eslint-disable-next-line testing-library/no-node-access
     const cardImage = cardAfterClick.querySelector('img'); // Then, query the img element within the button
     expect(cardImage).toHaveAttribute('src', mockCardFaceup.image);  // Check the img element has the correct src attribute
 
-    // Verify the aria-label has been updated to reflect the card's new state         // TODO: update test and code to include better aria-labels for images
+    // Verify the aria-label has been updated to reflect the card's new state
   //   expect(cardAfterClick).toHaveAttribute('aria-label', 'Card faceup with value A');
   });
 });

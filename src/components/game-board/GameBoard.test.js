@@ -56,6 +56,7 @@ describe('GameBoard', () => {
         // Map over each card, querying for an 'img' element, returning the image 'src' attribute, if the image exists
         // If the image does not exist (e.g. card is not flipped/doesn't contain an image), return null
         const firstRenderCardImages = firstRenderCards.map(card => {
+            // eslint-disable-next-line testing-library/no-node-access
             const img = card.querySelector('img');
             return img ? img.src : null;
         });
@@ -70,6 +71,7 @@ describe('GameBoard', () => {
         });
 
         const secondRenderCardImages = secondRenderCards.map(card => {
+            // eslint-disable-next-line testing-library/no-node-access
             const img = card.querySelector('img');
             return img ? img.src : null;
         });
