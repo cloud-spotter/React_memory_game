@@ -41,14 +41,14 @@ describe('GameBoard', () => {
 
     test('flips a facedown-card when clicked', () => {
         renderWithRouter(<GameBoard />);
-        const card = screen.getAllByRole('button', { name: "Card facedown" })[0];
+        const card = screen.getAllByRole('button', { name: /Card \d+ facedown/i })[0];
         fireEvent.click(card);
         expect(card).toHaveClass('card-faceup');
     });
 
     test('shuffles the cards randomly each render', () => {
         renderWithRouter(<GameBoard />);
-        const firstRenderCards = screen.getAllByRole('button', { name: "Card facedown" });
+        const firstRenderCards = screen.getAllByRole('button', { name: /Card \d+ facedown/i });
 
         firstRenderCards.forEach(card => {
             fireEvent.click(card);
@@ -63,7 +63,7 @@ describe('GameBoard', () => {
         cleanup();
 
         renderWithRouter(<GameBoard />);
-        const secondRenderCards = screen.getAllByRole('button', { name: "Card facedown" });
+        const secondRenderCards = screen.getAllByRole('button', { name: /Card \d+ facedown/i });
 
         secondRenderCards.forEach(card => {
             fireEvent.click(card);
@@ -79,7 +79,7 @@ describe('GameBoard', () => {
 
     test('registers cards as matched when two matching cards are flipped', async () => {
         renderWithRouter(<GameBoard />);
-        const cards = screen.getAllByRole('button', { name: /card facedown/i });
+        const cards = screen.getAllByRole('button', { name: /Card \d+ facedown/i });
         const firstCard = cards[0];
         // Since clicking the first card starts a game, we will click a card
         // first before doing anything else.
@@ -99,7 +99,7 @@ describe('GameBoard', () => {
 
     test('unflips cards when two non-matching cards are already flipped and a third is clicked', () => {
         renderWithRouter(<GameBoard />);
-        const cards = screen.getAllByRole('button', { name: /card facedown/i });
+        const cards = screen.getAllByRole('button', { name: /Card \d+ facedown/i });
         const firstCard = cards[0];
         fireEvent.click(firstCard); // Start game by clicking card (also reshuffles cards so do this before finding a matching card)
         
@@ -116,7 +116,7 @@ describe('GameBoard', () => {
 
     test('keeps cards flipped when two matching cards are flipped', () => {
         renderWithRouter(<GameBoard />);
-        const cards = screen.getAllByRole('button', { name: /card facedown/i });
+        const cards = screen.getAllByRole('button', { name: /Card \d+ facedown/i });
         const firstCard = cards[0];
         fireEvent.click(firstCard); // Start game by clicking card (also reshuffles cards so do this before finding a matching card)
         
@@ -130,7 +130,7 @@ describe('GameBoard', () => {
     // Test suggested by Claude (AI) in response to a request for feedback on my tests
     test('increments move count when two cards are flipped', () => {
         renderWithRouter(<GameBoard />);
-        const cards = screen.getAllByRole('button', { name: /card facedown/i });
+        const cards = screen.getAllByRole('button', { name: /Card \d+ facedown/i });
         const totalPairs = cards.length / 2;
         const firstCard = cards[0];
         fireEvent.click(firstCard); // Start the game before doing anything else (also initialise game settings, including shuffling the cards)
@@ -155,7 +155,7 @@ describe('GameBoard', () => {
 
     test('displays game over modal when all pairs are matched', () => {
         renderWithRouter(<GameBoard />);
-        const cards = screen.getAllByRole('button', { name: /card facedown/i });
+        const cards = screen.getAllByRole('button', { name: /Card \d+ facedown/i });
         const firstCard = cards[0];
         fireEvent.click(firstCard); // Start the game before doing anything else (also initialise game settings, including shuffling the cards)
 
@@ -171,7 +171,7 @@ describe('GameBoard', () => {
         fireEvent.click(matchingCard);
         });
         // Assert: Game Over text displays in the DOM
-        const gameOverMessage = screen.getByText(/Game Over/i);
+        const gameOverMessage = screen.getByText(/Game Over!/i);
         expect(gameOverMessage).toBeInTheDocument();
     });
 });
