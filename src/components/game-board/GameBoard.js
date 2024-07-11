@@ -6,13 +6,16 @@ import GameControls from '../game-controls/GameControls';
 import GameOverModal from '../game-over-modal/GameOverModal';
 
 // Function to create card data for each card instance (to be mapped to each element in the cards array when initialised)
-const createCardData = (image, index) => ({ // () around {} indicates that the arrow function will directly return an object literal
-    image: image, 
-    isFlipped: false,
-    isMatched: false,
-    description: `Image of ${image.split('/').pop().split('.')[0]}`,
-    id: index + 1
-});
+const createCardData = (image, index) => { // () around {} indicates that the arrow function will directly return an object literal
+    const card = {
+        image: image, 
+        isFlipped: false,
+        isMatched: false,
+        description: `Image of ${image.split('/').pop().split('.')[0]}`,
+        id: index + 1
+    };
+    return card;
+};
 
 // Function to shuffle array (Fisher-Yates shuffle algorithm)
 // https:www.freecodecamp.org/news/how-to-shuffle-an-array-of-items-using-javascript-or-typescript/
@@ -73,15 +76,23 @@ function GameBoard() {
         }
     }, [cards, isGameOverModalOpen]);
 
+    // DEBUGGING (trying to find point where card id turns to NaN)
+    // useEffect(() => {
+    //     console.log('Cards state updated:', cards);
+    // }, [cards]);
+
     const handleCardClick = (index) => {
+        console.log('Card clicked:', index);
         if (!isGameActive) {
             startGame(); // Start the game on the first card click
             setIsGameActive(true);
         }
         
         setCards(currentCards => {
+            console.log('Current cards before update:', currentCards); // DEBUGGING
             // Create copy of current cards array for modifying
             let updatedCards = [...currentCards];
+            console.log('Updated cards after spread:', updatedCards); // DEBUGGING
             // Check if clicked card is already flipped/matched (& return early if so)
             if (currentCards[index].isFlipped || currentCards[index].isMatched) {
                 return updatedCards;
@@ -113,6 +124,7 @@ function GameBoard() {
             } else {
                 setFlippedIndices(newFlippedIndices);
             }
+            console.log('Final updated cards:', updatedCards); // DEBUGGING
             return updatedCards;
         });
     };
@@ -148,6 +160,10 @@ function GameBoard() {
         
         const shuffledCardImages = createPairSequence(numPairs, imageSet);
         setCards(shuffledCardImages.map((image) => createCardData(image)));
+        // Changed for debugging reasons (next 3 lines)
+        const newCards = shuffledCardImages.map((image, index) => createCardData(image, index)); // Create new variable for clarity before setting state
+        console.log('Cards created in startGame:', newCards); // DEBUGGING
+        setCards(newCards);
         setFlippedIndices([]);
         setMoveCount(0);
         setIsGameOverModalOpen(false);
@@ -157,7 +173,11 @@ function GameBoard() {
     const resetGame = () => {
         setIsGameActive(false);
         const shuffledCardImages = createPairSequence(numPairs, imageSet);
-        setCards(shuffledCardImages.map((image) => createCardData(image)));
+        // setCards(shuffledCardImages.map((image) => createCardData(image)));
+        // Above line changed to below 3 lines (Debugging)
+        const newCards = shuffledCardImages.map((image, index) => createCardData(image, index)); // Create new variable for clarity before setting state
+        console.log('Cards created in resetGame:', newCards); // DEBUGGING
+        setCards(newCards);
         setFlippedIndices([]);
         setMoveCount(0);
         resetTimer();
