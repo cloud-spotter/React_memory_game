@@ -8,7 +8,7 @@ function Card({ card, handleCardClick }) {
     } else if (card.isFlipped) {
         return `Flipped card: ${card.description}`;
     } else {
-        return `Card ${card.id} facedown`;
+        return `Card ${card.id || 'unknown'} facedown`;
     }
   };
   
@@ -17,7 +17,7 @@ function Card({ card, handleCardClick }) {
         className={`${card.isFlipped ? "card-faceup" : "card-facedown"} ${card.isMatched ? "card-matched" : ""}`}
         aria-label={getAriaLabel()} // Use dynamic attribute label since updating aria-labels to match card states
         onClick={handleCardClick}
-        data-value={card.image}
+        data-value={card.image.split('/').pop().split('.')[0]}
       >
         {card.isFlipped && (
           <div className="card-image-wrapper">
