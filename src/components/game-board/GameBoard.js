@@ -6,11 +6,16 @@ import GameControls from '../game-controls/GameControls';
 import GameOverModal from '../game-over-modal/GameOverModal';
 
 // Function to create card data for each card instance (to be mapped to each element in the cards array when initialised)
-const createCardData = (image) => ({ // () around {} indicates that the arrow function will directly return an object literal
-    image: image, 
-    isFlipped: false,
-    isMatched: false
-});
+const createCardData = (image, index) => { // () around {} indicates that the arrow function will directly return an object literal
+    const card = {
+        image: image, 
+        isFlipped: false,
+        isMatched: false,
+        description: `Image of ${image.split('/').pop().split('.')[0]}`,
+        id: index + 1
+    };
+    return card;
+};
 
 // Function to shuffle array (Fisher-Yates shuffle algorithm)
 // https:www.freecodecamp.org/news/how-to-shuffle-an-array-of-items-using-javascript-or-typescript/
@@ -55,7 +60,7 @@ function GameBoard() {
     const imageSet = queryParams.get('imageSet') || 'animals';  // Default to 'animals' if not specified
 
     const cardImages = createPairSequence(numPairs, imageSet);  // Create and shuffle cards
-    const [cards, setCards] = useState(cardImages.map(image => createCardData(image)));  // Initialise cards state (with shuffled values)
+    const [cards, setCards] = useState(cardImages.map((image, index) => createCardData(image, index)));  // Initialise cards state (with shuffled values)
     const [flippedIndices, setFlippedIndices] = useState([]);  // Track indices of currently flipped cards across renders
     const [moveCount, setMoveCount] = useState(0)
     const [isGameOverModalOpen, setIsGameOverModalOpen] = useState(false);
@@ -82,20 +87,20 @@ function GameBoard() {
             let updatedCards = [...currentCards];
             // Check if clicked card is already flipped/matched (& return early if so)
             if (currentCards[index].isFlipped || currentCards[index].isMatched) {
-                return updatedCards
+                return updatedCards;
             }
             
             // Flip the clicked card
             updatedCards[index].isFlipped = true;
             // Temporary array to include indices of currently flipped cards PLUS the newly flipped card
-            const newFlippedIndices = [...flippedIndices, index];
+            const newFlippedIndices = [...flippedIndices, { index, id: updatedCards[index].id }];
 
             // If there are 2 cards currently flipped, check their values for a match & if a match is found, mark them as matched
             if (newFlippedIndices.length === 2) {
-                const [firstIndex, secondIndex] = newFlippedIndices;
-                if (updatedCards[firstIndex].image === updatedCards[secondIndex].image) {
-                    updatedCards[firstIndex].isMatched = true;
-                    updatedCards[secondIndex].isMatched = true;
+                const [firstCard, secondCard] = newFlippedIndices;
+                if (updatedCards[firstCard.index].image === updatedCards[secondCard.index].image) {
+                    updatedCards[firstCard.index].isMatched = true;
+                    updatedCards[secondCard.index].isMatched = true;
                     setFlippedIndices([]); // Remove matched cards from flipped indices tracker
                 } else {
                     setFlippedIndices(newFlippedIndices);
@@ -103,11 +108,11 @@ function GameBoard() {
                 // Increment moveCount (after second card click)
                 setMoveCount(previousMoveCount => previousMoveCount +1);
             } else if (newFlippedIndices.length === 3) {  // Handle case when third card is clicked if two unmatched cards are already flipped (flip back the first two)
-                const [firstIndex, secondIndex] = newFlippedIndices;
-                updatedCards[firstIndex].isFlipped = false;
-                updatedCards[secondIndex].isFlipped = false;
+                const [firstCard, secondCard] = flippedIndices;
+                updatedCards[firstCard.index].isFlipped = false;
+                updatedCards[secondCard.index].isFlipped = false;
                 updatedCards[index].isFlipped = true; // Flip the third (current) card clicked
-                setFlippedIndices([index]);
+                setFlippedIndices([{ index, id: updatedCards[index].id }]);
             } else {
                 setFlippedIndices(newFlippedIndices);
             }
@@ -145,7 +150,8 @@ function GameBoard() {
         }
         
         const shuffledCardImages = createPairSequence(numPairs, imageSet);
-        setCards(shuffledCardImages.map((image) => createCardData(image)));
+        const newCards = shuffledCardImages.map((image, index) => createCardData(image, index)); // Create new variable for clarity before setting state
+        setCards(newCards);
         setFlippedIndices([]);
         setMoveCount(0);
         setIsGameOverModalOpen(false);
@@ -155,7 +161,8 @@ function GameBoard() {
     const resetGame = () => {
         setIsGameActive(false);
         const shuffledCardImages = createPairSequence(numPairs, imageSet);
-        setCards(shuffledCardImages.map((image) => createCardData(image)));
+        const newCards = shuffledCardImages.map((image, index) => createCardData(image, index)); // Create new variable for clarity before setting state
+        setCards(newCards);
         setFlippedIndices([]);
         setMoveCount(0);
         resetTimer();
