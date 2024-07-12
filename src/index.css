@@ -344,9 +344,20 @@ body, html {
   border: none;
   border-radius: 5px;
   padding: 10px 20px;
+  height: 55px;
+  width: 130px;
   cursor: pointer;
-  font-size: 1.2em;
+  font-size: 1.4em;
   margin-top: 50px;
+  margin-bottom: 40px;
+}
+.button.reset {
+  background-color: #FF9EA4; 
+  height: 55px;
+  width: 150px;
+  padding: 10px 20px;
+  margin: 10px;
+  font-size: 1.3em
 }
 
 /* Responsive adjustments */
@@ -452,6 +463,9 @@ body, html {
   .play {
     margin-top: 10px;
     margin-bottom: 15px;
+    font-size: 1.3em;
+    height: 45px;
+    width: 90px;
   }
   
   /* Game page adaptations */
