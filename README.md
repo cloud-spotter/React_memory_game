@@ -1,10 +1,13 @@
 # Memory Game React App
 
-This project is a React adaptation of a memory card game originally created as a Python CLI application.
+This project is a React adaptation of a memory card game originally created as a Python CLI application. You can play it [here](https://memory-pairs-game.pages.dev/). 
 
 ![Home page](public/images/home_page.png)
 
 ![Game page](public/images/game_page.png)
+
+## Project Status
+This app is a work in progress and part of my learning journey in React development. While fully functional, it may have some visual inconsistencies across different screen sizes and occasional quirks in modal positioning. I've been working on improving these aspects and welcome any feedback or suggestions!
 
 ## Development Process
 
